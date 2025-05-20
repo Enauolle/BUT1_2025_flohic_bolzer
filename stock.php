@@ -4,11 +4,7 @@ include_once("menu.php");
 ?>
 
 <main>
-    <ul>
-        <li> La Confiserie <li>
-        <li> Bon-Bons <li>
-        <li> Confiz <li>
-    </ul>
+    <h1>Nom de la Boutique du gérant</h1>
 </main>
 
 <?php
