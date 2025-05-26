@@ -3,7 +3,7 @@ include_once("header.php");
 include_once("menu.php");
 ?>
     <main>
-        <div class= "Informations Boutiques">
+        <div class= "Info">
             Horaires
             Confiserie
             Disponibilité en stock

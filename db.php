@@ -26,7 +26,6 @@ try {
 }
 
 /*
-
 * Cette fonction utilise des REQUETES PREPAREE :
 * Si des informations dans la requêtes doivent varier, elles sont représentées par un "?"
 * Les paramètres dans le tableaux remplaceront ces "?" dans l'ordre

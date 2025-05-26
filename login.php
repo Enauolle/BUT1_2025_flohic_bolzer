@@ -1,4 +1,4 @@
-<main><?php
+<?php
 include_once("header.php");
 ?>
 <main>
@@ -12,7 +12,7 @@ include_once("header.php");
             <button type="submit">Se connecter</button>
 
             <?php
-                include_once("check.php");
+                include_once("fonction.php");
             
             if(isset($_POST["login"]) && isset($_POST["password"])){
                 $login = $_POST["login"];
