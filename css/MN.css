@@ -1,4 +1,8 @@
 /* Main */
 main {
-    background-color: rgba(245, 245, 220, 0.563);
+    background-color: rgba(126, 45, 103, 0.563);
+}
+
+.log-container {
+    background-color: aquamarine;
 }

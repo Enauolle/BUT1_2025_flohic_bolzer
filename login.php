@@ -2,7 +2,7 @@
 include_once("header.php");
 ?>
 <main>
-    <div class="main-container">
+    <div class="log-container">
          <form method="POST" action="">
             <h1>Connection</h1>
             <h2>Nom d'utilisateur</h2>
