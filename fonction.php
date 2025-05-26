@@ -11,5 +11,18 @@ function check_login($login, $password){
     }
 }
 
+function check_role($login, $role){
+    $supergerant = dbquery("SELECT * FROM utilisateur WHERE role LIKE admin") ;
+    $gerant = dbquery("SELECT * FROM utilisateur WHERE role LIKE gerant") ;
+    if ($supergerant == true){
+    header("location: supergerant.php");
+    }
+    elseif ($gerant == true){
+    header("location: gerant.php");
+    }
+    else {
+    header("location: index.php");
+    }
+}
 
 ?>
