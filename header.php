@@ -8,7 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notre boutique de bonbons :]</title>
 
-    <link href="css/HMF.css" rel="stylesheet">
+    <link href="css/body.css" rel="stylesheet">
     <link href="css/MN.css" rel="stylesheet">
+    <link href="css/Header.css" rel="stylesheet">
+    <link href="css/Footer.css" rel="stylesheet">
 </head>
 <body>
