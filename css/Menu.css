@@ -1,0 +1,47 @@
+.navbar {
+    background-color: #fff;
+    padding: 2%;
+    font-family: 'Goudy Old Style', sans-serif;
+    font-size: 25px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 2%;
+}
+
+.navbar a {
+    color: black;               
+    text-decoration: none;      
+}  
+
+.boutique {
+    display: inline;
+    padding: 8%;
+} 
+
+.underline {
+    position: relative;
+    text-decoration: none;
+    color: black;
+    margin-right: 20px;
+}
+
+.underline::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0%;
+    height: 1px;
+    background-color: #000;
+    transform: translateX(-50%);
+    transition: width 0.3s ease-in-out;
+}
+
+.underline:hover::after {
+    width: 80%;
+}
+
