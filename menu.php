@@ -1,8 +1,8 @@
 <nav class="navbar">
     <ul>
-        <li> La Confiserie </li>
-        <li> Bon-Bons </li>
-        <li> Confiz </li>
+        <li> Boutique 1 </li>
+        <li> Boutique 2 </li>
+        <li> Boutique 3 </li>
         <?php 
             if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]){
                  echo('<a class="logout-button" href="logout.php">Se déconnecter</a>');
