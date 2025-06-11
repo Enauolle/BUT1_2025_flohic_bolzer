@@ -1,15 +1,47 @@
 footer {
     background-color: #FFD5D4;
-    column-count: 3;
-    padding: 5%;
+    column-count: 2;
+    padding: 3%;
+    text-align: center;
 }
-.logo {
-    width: 30%;
+.logofooter {
+    width: 17%;
 }
-footer p {
+.rs {
+    position: relative;
     font-size: 1rem;
+    right: 0%;
 }
 .rs i {
-    width: 10%;
-    padding-right: 5%;
+    width: 5%;
 }
+
+section {
+    background-color: black;
+    padding: 5%;
+    color: white;
+    display: flex;
+    gap: 8rem;
+}
+
+.colonne {
+    font-size: 1rem;
+    margin-left: 5%;
+}
+
+.colonne h4 {
+    text-transform: uppercase;
+}
+
+.colonne ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.colonne ul li {
+    margin-bottom: 1%;
+}
+
+
+

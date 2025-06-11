@@ -4,7 +4,7 @@
     padding: 2%;
 }
 
-ul {
+.navbar ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -12,7 +12,7 @@ ul {
     text-align: center;
 }
 
-li {
+.navbar li {
     display: inline;
     padding: 8%;
   } 
