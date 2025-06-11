@@ -13,6 +13,8 @@
     <link href="css/MN.css" rel="stylesheet">
     <link href="css/Header.css" rel="stylesheet">
     <link href="css/Footer.css" rel="stylesheet">
+    <link href="css/Menu.css" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/goudy-old-style" rel="stylesheet">
     <script src="https://kit.fontawesome.com/08b10a2ab2.js" crossorigin="anonymous"></script>
 </head>
 
@@ -22,4 +24,4 @@
         <i class="cart fa-solid fa-cart-shopping" style="color: #e4322e;"></i>
         <i class="user fa-regular fa-user" style="color: #e4322e;"></i>
     </div>
-    <img src="img/logocoupé.png" alt="logo La Confiserie" class="logo">
+    <img src="img/logocoupé.png" alt="logo La Confiserie" class="logoheader">
