@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Confiserie</title>
+    <link rel="icon" type="image/x-icon" href="img/logoico.ico">
 
     <link href="css/body.css" rel="stylesheet">
     <link href="css/MN.css" rel="stylesheet">
