@@ -1,4 +1,5 @@
 <nav class="navbar">
+    <img src="img/logo.png" class="logo">
     <ul>
         <li> Boutique 1 </li>
         <li> Boutique 2 </li>
