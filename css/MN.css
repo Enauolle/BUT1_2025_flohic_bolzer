@@ -4,9 +4,6 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: sans-serif;
-}
 
 .banniere {
   width: 100vw;
@@ -47,4 +44,12 @@ body {
   color: black;
   font-weight: normal;
   margin: 5px 0;
+}
+
+body {
+      font-family: 'Goudy Old Style', sans-serif;
+}
+
+h1 {
+      text-align: center;
 }

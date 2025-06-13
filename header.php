@@ -9,7 +9,6 @@
     <title>La Confiserie</title>
     <link rel="icon" type="image/x-icon" href="img/logoico.ico">
 
-    <link href="css/body.css" rel="stylesheet">
     <link href="css/mn.css" rel="stylesheet">
     <link href="css/header.css" rel="stylesheet">
     <link href="css/footer.css" rel="stylesheet">

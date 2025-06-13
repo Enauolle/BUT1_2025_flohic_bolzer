@@ -15,8 +15,7 @@ $recup = $connection->fetchAll();
                     $nomb = $boutiques['nom'];
                     $imgb = $boutiques['illustration'];
                     echo('<h1>'.$nomb.'</h1>');
-                    echo('<img src="img/img_bdd'.$imgb.'/>');
-
+                    echo('<div class="banniere"> <img src="img/img_bdd/'.$imgb.'"/> </div>');
                     echo($boutiques['code_postal']);
                     echo("</br>");
                     echo($boutiques['numero_rue']);
@@ -26,6 +25,9 @@ $recup = $connection->fetchAll();
                     echo($boutiques['ville']);
                     echo(" ");
                     echo($boutiques['pays']);
+                    echo("</br>");
+                    echo("</br>");
+                    echo($boutiques['histoire']);
                 }
             ?>
         </div>
