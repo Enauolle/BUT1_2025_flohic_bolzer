@@ -7,6 +7,8 @@ CREATE TABLE `boutiques` (
   `code_postal` VARCHAR(10) NOT NULL,
   `ville` VARCHAR(20) NOT NULL,
   `pays` VARCHAR(20) NOT NULL
+  `illustration` VARCHAR(255),
+  `histoire`VARCHAR(2000) NOT NULL
 );
 
 CREATE TABLE `utilisateurs` (

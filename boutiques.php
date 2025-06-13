@@ -13,8 +13,9 @@ $recup = $connection->fetchAll();
             <?php
                 foreach($recup as $boutiques){
                     $nomb = $boutiques['nom'];
+                    $imgb = $boutiques['illustration'];
                     echo('<h1>'.$nomb.'</h1>');
-                    echo($boutiques['illustration']);
+                    echo('<img src="img/img_bdd'.$imgb.'/>');
 
                     echo($boutiques['code_postal']);
                     echo("</br>");
