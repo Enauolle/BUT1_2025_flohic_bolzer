@@ -9,6 +9,7 @@ include_once("menu.php");
             Disponibilité en stock
         </div>
     </main>
+    <img src="img/banniere4.jpg" class="imboutique">
 <?php
 include_once("footer.php");
 ?>

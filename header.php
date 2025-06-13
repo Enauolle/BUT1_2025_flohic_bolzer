@@ -13,6 +13,7 @@
     <link href="css/MN.css" rel="stylesheet">
     <link href="css/Header.css" rel="stylesheet">
     <link href="css/Footer.css" rel="stylesheet">
+    <link href="css/boutque.css" rel="stylesheet">
     <link href="css/Menu.css" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/goudy-old-style" rel="stylesheet">
     <script src="https://kit.fontawesome.com/08b10a2ab2.js" crossorigin="anonymous"></script>

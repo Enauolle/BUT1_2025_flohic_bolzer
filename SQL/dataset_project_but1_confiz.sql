@@ -4,10 +4,10 @@ INSERT INTO utilisateurs(id, username, password, email, role, prenom, nom, ddn) 
 (3, 'bobdu35', md5('1234'), 'bobdu35@example.com', 'client', 'Robert', 'Kinsey', '1982-10-12'),
 (4, 'tywin', md5('1234'), 'tywin@example.com', 'client', 'Charles', 'Dance', '1946-10-10');
 
-INSERT INTO `boutiques` (`id`, `nom`, `utilisateur_id`, `numero_rue`, `nom_adresse`, `code_postal`, `ville`, `pays`) VALUES
-(1, 'La mika-line', 1, '10', 'Rue des Bonbons', '75001', 'Paris', 'France'),
-(2, 'OK Bonbons', 2, '20', 'Avenue des Friandises', '69001', 'Lyon', 'France'),
-(3, 'Saccharo', 3, '30', 'Boulevard des Saveurs', '13001', 'Marseille', 'France');
+INSERT INTO `boutiques` (`id`, `nom`, `utilisateur_id`, `numero_rue`, `nom_adresse`, `code_postal`, `ville`, `pays`, `illustration`) VALUES
+(1, 'La mika-line', 1, '10', 'Rue des Bonbons', '75001', 'Paris', 'France', ''),
+(2, 'OK Bonbons', 2, '20', 'Avenue des Friandises', '69001', 'Lyon', 'France', ''),
+(3, 'Saccharo', 3, '30', 'Boulevard des Saveurs', '13001', 'Marseille', 'France', '');
 
 INSERT INTO `confiseries` (`id`, `nom`, `type`, `prix`, `illustration`, `description`) VALUES
 (1, 'Bonbon Acide', 'Acide', 1.99, '', 'Bonbon acide délicieux'),
