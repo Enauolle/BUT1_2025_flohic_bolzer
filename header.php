@@ -10,18 +10,11 @@
     <link rel="icon" type="image/x-icon" href="img/logoico.ico">
 
     <link href="css/body.css" rel="stylesheet">
-<<<<<<< HEAD
-    <link href="css/MN.css" rel="stylesheet">
-    <link href="css/Header.css" rel="stylesheet">
-    <link href="css/Footer.css" rel="stylesheet">
-    <link href="css/boutque.css" rel="stylesheet">
-    <link href="css/Menu.css" rel="stylesheet">
-=======
     <link href="css/mn.css" rel="stylesheet">
     <link href="css/header.css" rel="stylesheet">
     <link href="css/footer.css" rel="stylesheet">
     <link href="css/menu.css" rel="stylesheet">
->>>>>>> 7af15889e73b95ecbcde88271d32fb52694b2b78
+    <link href="css/footer.css" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/goudy-old-style" rel="stylesheet">
     <script src="https://kit.fontawesome.com/08b10a2ab2.js" crossorigin="anonymous"></script>
 </head>
