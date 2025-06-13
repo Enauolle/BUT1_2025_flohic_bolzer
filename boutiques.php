@@ -12,6 +12,10 @@ $recup = $connection->fetchAll();
         <div class= "Info">
             <?php
                 foreach($recup as $boutiques){
+                    $nomb = $boutiques['nom'];
+                    echo('<h1>'.$nomb.'</h1>');
+                    echo($boutiques['illustration']);
+
                     echo($boutiques['code_postal']);
                     echo("</br>");
                     echo($boutiques['numero_rue']);
@@ -25,7 +29,9 @@ $recup = $connection->fetchAll();
             ?>
         </div>
     </main>
-    <img src="img/banniere4.jpg" class="imboutique">
+    <div class="banniere">
+    <img src="img/banniere4.jpg" alt="Bannière test">
+  </div>
 <?php
 include_once("footer.php");
 ?>
