@@ -10,10 +10,10 @@
     <link rel="icon" type="image/x-icon" href="img/logoico.ico">
 
     <link href="css/body.css" rel="stylesheet">
-    <link href="css/MN.css" rel="stylesheet">
-    <link href="css/Header.css" rel="stylesheet">
-    <link href="css/Footer.css" rel="stylesheet">
-    <link href="css/Menu.css" rel="stylesheet">
+    <link href="css/mn.css" rel="stylesheet">
+    <link href="css/header.css" rel="stylesheet">
+    <link href="css/footer.css" rel="stylesheet">
+    <link href="css/menu.css" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/goudy-old-style" rel="stylesheet">
     <script src="https://kit.fontawesome.com/08b10a2ab2.js" crossorigin="anonymous"></script>
 </head>
@@ -21,7 +21,7 @@
 
 <body>
     <div class="icones">
-        <i class="cart fa-solid fa-cart-shopping" style="color: #e4322e;"></i>
-        <i class="user fa-regular fa-user" style="color: #e4322e;"></i>
+        <a href="#"><i class="cart fa-solid fa-cart-shopping" style="color: #e4322e;"></i></a>
+        <a href="#"><i class="user fa-regular fa-user" style="color: #e4322e;"></i></a>
     </div>
     <img src="img/logocoupé.png" alt="logo La Confiserie" class="logoheader">

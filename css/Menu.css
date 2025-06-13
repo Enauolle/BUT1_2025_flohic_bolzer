@@ -1,47 +1,35 @@
 .navbar {
-    background-color: #fff;
-    padding: 2%;
-    font-family: 'Goudy Old Style', sans-serif;
-    font-size: 25px;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    text-align: center;
-    text-decoration: none;
-    margin-top: 2%;
+  background-color: #fff;
+  font-family: 'Goudy Old Style', sans-serif;
+  font-size: 25px;
+  list-style-type: none;
+  margin: 0;
+  padding: 2%;
+  text-align: center;
+  margin-top: 2%;
 }
 
 .navbar a {
-    color: black;               
-    text-decoration: none;      
-}  
-
-.boutique {
-    display: inline;
-    padding: 8%;
-} 
-
-.underline {
-    position: relative;
-    text-decoration: none;
-    color: black;
-    margin-right: 20px;
+  color: black;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  margin: 0 20px; /* espacement entre les liens */
 }
 
-.underline::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    width: 0%;
-    height: 1px;
-    background-color: #000;
-    transform: translateX(-50%);
-    transition: width 0.3s ease-in-out;
+/* Soulignement animé */
+.navbar a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: black;
+  transition: all 0.4s ease;
+  transform: translateX(-50%);
 }
 
-.underline:hover::after {
-    width: 80%;
+.navbar a:hover::after {
+  width: 100%;
 }
-
