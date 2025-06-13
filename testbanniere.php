@@ -1,4 +1,9 @@
-
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Bannière</title>
+  <style>
     * {
       margin: 0;
       padding: 0;
@@ -19,3 +24,16 @@
       object-fit: cover;
       display: block;
     }
+  </style>
+</head>
+<?php
+include_once("header.php");
+?>
+<body>
+
+  <div class="banniere">
+    <img src="img/banniere.jpg" alt="Bannière test">
+  </div>
+
+</body>
+</html>

@@ -9,27 +9,4 @@
   margin-top: 2%;
 }
 
-.navbar a {
-  color: black;
-  text-decoration: none;
-  position: relative;
-  display: inline-block;
-  margin: 0 20px; /* espacement entre les liens */
-}
 
-/* Soulignement animé */
-.navbar a::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background-color: black;
-  transition: all 0.4s ease;
-  transform: translateX(-50%);
-}
-
-.navbar a:hover::after {
-  width: 100%;
-}
