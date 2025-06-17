@@ -6,12 +6,15 @@ include_once("db.php");
 $sqlboutique = "SELECT * FROM boutiques" ;
 $connection = $PDO->query($sqlboutique);
 $recup = $connection->fetchAll();
+$id = $_GET['id'];
+
 
 ?>
     <main>
         <div class= "Info">
             <?php
                 foreach($recup as $boutiques){
+                if ($boutiques['id'] == $id) {
                     $nomb = $boutiques['nom'];
                     $imgb = $boutiques['illustration'];
                     echo('<h1>'.$nomb.'</h1>');
@@ -29,8 +32,10 @@ $recup = $connection->fetchAll();
                     echo("</br>");
                     echo($boutiques['histoire']);
                 }
+            }
             ?>
         </div>
+        <button>Accéder aux produits</button>
     </main>
     <div class="banniere">
     <img src="img/banniere4.jpg" alt="Bannière test">
