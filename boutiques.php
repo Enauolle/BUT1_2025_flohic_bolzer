@@ -35,7 +35,7 @@ $id = $_GET['id'];
             }
             ?>
         </div>
-        <a href="boutiques.php?id=1" class="boutton">Accéder aux produits</a>
+        <a href="produits.php?id=" class="boutton">Accéder aux produits</a>
     </main>
     <div class="banniere">
     <img src="img/banniere4.jpg" alt="Bannière test">
