@@ -53,3 +53,20 @@ body {
 h1 {
       text-align: center;
 }
+
+.titre2{
+    font-size: 1.5rem;
+    margin: 20px;
+    color: black;
+}
+
+
+.boutique a {
+  text-decoration: none;
+  color: black;
+}
+
+.boutique h2 {
+  font-size: 25px;
+  text-align: center;
+}
