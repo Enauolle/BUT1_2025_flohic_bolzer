@@ -13,7 +13,7 @@
     <link href="css/header.css" rel="stylesheet">
     <link href="css/footer.css" rel="stylesheet">
     <link href="css/menu.css" rel="stylesheet">
-    <link href="css/footer.css" rel="stylesheet">
+    <link href="css/boutique.css" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/goudy-old-style" rel="stylesheet">
     <script src="https://kit.fontawesome.com/08b10a2ab2.js" crossorigin="anonymous"></script>
 </head>
