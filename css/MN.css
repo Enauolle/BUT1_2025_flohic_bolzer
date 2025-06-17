@@ -10,6 +10,7 @@
   height: 350px;
   overflow: hidden;
   background-color: lightgray;
+  margin-top: 5%;
 }
 
 .banniere img {
@@ -37,6 +38,7 @@
   height: 550px;
   object-fit: cover;
   display: block;
+  margin-bottom: 3%;
 }
 
 .boutique h2 {
@@ -47,11 +49,19 @@
 }
 
 body {
-      font-family: 'Goudy Old Style', sans-serif;
+    font-family: 'Goudy Old Style', sans-serif;
+    
 }
 
 h1 {
       text-align: center;
+      font-weight: normal;
+}
+h2{
+    font-weight: normal;
+}
+h3 {
+    font-weight: normal;
 }
 
 .titre2{
@@ -69,4 +79,33 @@ h1 {
 .boutique h2 {
   font-size: 25px;
   text-align: center;
+}
+
+.histoire {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 50px 80px;
+  background-color: white;
+}
+
+.histoire img {
+  max-width: 500px;
+  height: auto;
+  object-fit: cover;
+  border-right: 1px solid #ccc;
+  padding-right: 30px;
+}
+
+.histoire h2 {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.histoire p {
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 600px;
 }
