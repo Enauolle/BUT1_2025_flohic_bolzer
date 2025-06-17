@@ -61,7 +61,7 @@ En 1985 Emile cède son entreprise à sa fille Chantal qui fera en sorte de main
         <p>54000 Nancy</p>
     </div>
     <div>
-        <img src="" alt="">
+        <img src="img/magasinlaconfi.png" alt="">
     </div>
 </div>
 

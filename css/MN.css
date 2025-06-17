@@ -109,3 +109,25 @@ h3 {
   line-height: 1.6;
   max-width: 600px;
 }
+
+
+.addresse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  padding: 40px 80px;
+  background-color: white;
+}
+
+.addresse div p {
+  font-size: 20px;
+  text-align: center;
+  margin: 5px 0;
+}
+
+.addresse img {
+  max-width: 500px;
+  height: auto;
+  object-fit: cover;
+}
