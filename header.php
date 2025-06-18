@@ -14,6 +14,7 @@
     <link href="css/footer.css" rel="stylesheet">
     <link href="css/menu.css" rel="stylesheet">
     <link href="css/boutique.css" rel="stylesheet">
+    <link href="css/bonbon.css" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/goudy-old-style" rel="stylesheet">
     <script src="https://kit.fontawesome.com/08b10a2ab2.js" crossorigin="anonymous"></script>
 </head>
@@ -25,4 +26,5 @@
         <a href="#"><i class="user fa-regular fa-user" style="color: #e4322e;"></i></a>
     </div>
     <a href="index.php"><img src="img/logocoupé.png" alt="logo La Confiserie" class="logoheader"></a>
+
     

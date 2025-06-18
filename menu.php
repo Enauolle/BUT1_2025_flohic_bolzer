@@ -3,4 +3,5 @@
     <a class="boutique underline" href="boutiques.php?id=2">OK Bonbons</a>
     <a class="boutique underline" href="boutiques.php?id=3">Saccharo</a>
 </nav>
+<div class="trait"></div>
 

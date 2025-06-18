@@ -30,9 +30,14 @@ include_once("db.php");
                         echo('<div class="histoire">'.$hist.'</div>');
                     }
             }
+            
+            $sqlstock = "SELECT * FROM stocks";
+            $connect = $PDO->query($sqlstock);
+            $numero = $connect->fetchAll();
+
+            echo('<a href="produits.php?id='.$id.'" class="boutton">Accéder aux produits</a>');
             ?>
         </div>
-        <a href="produits.php?" class="boutton">Accéder aux produits</a>
     </main>
     <div class="bannierefin">
     <img src="img/banniere4.jpg" alt="Bannière test">
