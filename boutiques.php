@@ -3,12 +3,6 @@ include_once("header.php");
 include_once("menu.php");
 include_once("db.php");
 
-$sqlboutique = "SELECT * FROM boutiques" ;
-$connection = $PDO->query($sqlboutique);
-$recup = $connection->fetchAll();
-$id = $_GET['id'];
-
-
 ?>
     <main>
         <div class= "Info">
@@ -38,7 +32,7 @@ $id = $_GET['id'];
             }
             ?>
         </div>
-        <a href="produits.php?id=" class="boutton">Accéder aux produits</a>
+        <a href="produits.php?" class="boutton">Accéder aux produits</a>
     </main>
     <div class="bannierefin">
     <img src="img/banniere4.jpg" alt="Bannière test">

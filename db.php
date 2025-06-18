@@ -42,3 +42,23 @@ function dbquery($sql, $params = []){
 
 
 
+
+$id = $_GET['id'];
+
+$sqlboutique = "SELECT * FROM boutiques" ;
+$connection = $PDO->query($sqlboutique);
+$recup = $connection->fetchAll();
+
+$sqlconfiserie = "SELECT * FROM confiseries" ;
+$connection2 = $PDO->query($sqlconfiserie);
+$recup2 = $connection2->fetchAll();
+
+$sqlstocks = "SELECT * FROM stocks JOIN boutiques ON boutiques.id = stocks.boutique_id" ;
+$connection3 = $PDO->query($sqlstocks);
+$recup3 = $connection3->fetchAll();
+
+
+
+
+
+
