@@ -3,10 +3,19 @@ include_once("header.php");
 include_once("menu.php");
 include_once("db.php");
 
-
 ?>
+    <div class="titrepro">
+        <?php
+            foreach($recup as $boutiques){
+            if ($boutiques['id'] == $id) {
+                $nomb = $boutiques['nom'];
+                echo('<h1>'.$nomb.'</h1>');
+                }
+            }
+        ?>
+    </div>
 
-   <main>
+   <main class="propro">
         <?php
             foreach ($recup3 as $stock) {
                     foreach ($recup2 as $confiseries) {
@@ -14,16 +23,25 @@ include_once("db.php");
                             $imgc = $confiseries['illustration'];
                             $nomc = $confiseries['nom'];
                             $prix = $confiseries['prix'];
-                            echo('<div class="banniere"> <img src="img/img_bdd/'.$imgc.'"/> </div>');
+                            echo('<div class="carte">');
+                            echo('<div class="confis"> <img src="img/img_bdd/'.$imgc.'"/> </div>');
                             echo('<h4>'.$nomc.'</h4>');
                             echo('</br>');
                             echo($confiseries['description']);
                             echo('</br>');
                             echo(''.$prix.'€');
                             echo('</br>');
-                            echo('Voir les détails');
+                            echo('</br>');
+                            echo('<a href="bonbon.php?id='.$id.'" >Voir les détails ></a>');
+                            echo('</div>');
                   }
                 }
             }
         ?>
     </main>
+    <div class="bannierefin">
+        <img src="img/banniere4.jpg" alt="Bannière test">
+    </div>
+    <?php
+include_once("footer.php");
+?>

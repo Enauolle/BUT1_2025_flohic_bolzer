@@ -4,8 +4,7 @@ include_once("menu.php");
 include_once("db.php");
 
 ?>
-    <main>
-        <div class= "Info">
+        <div class= "infob">
             <?php
                 foreach($recup as $boutiques){
                     if ($boutiques['id'] == $id) {
@@ -38,7 +37,6 @@ include_once("db.php");
             echo('<a href="produits.php?id='.$id.'" class="boutton">Accéder aux produits</a>');
             ?>
         </div>
-    </main>
     <div class="bannierefin">
     <img src="img/banniere4.jpg" alt="Bannière test">
   </div>
