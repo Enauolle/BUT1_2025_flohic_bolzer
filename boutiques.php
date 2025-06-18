@@ -17,8 +17,10 @@ $id = $_GET['id'];
                     if ($boutiques['id'] == $id) {
                         $nomb = $boutiques['nom'];
                         $imgb = $boutiques['illustration'];
+                        $hist = $boutiques['histoire'];
                         echo('<h1>'.$nomb.'</h1>');
                         echo('<div class="banniere"> <img src="img/img_bdd/'.$imgb.'"/> </div>');
+                        echo('<div class="infoloca">');
                         echo($boutiques['code_postal']);
                         echo("</br>");
                         echo($boutiques['numero_rue']);
@@ -28,16 +30,17 @@ $id = $_GET['id'];
                         echo($boutiques['ville']);
                         echo(" ");
                         echo($boutiques['pays']);
+                        echo("</div>");
                         echo("</br>");
                         echo("</br>");
-                        echo($boutiques['histoire']);
+                        echo('<div class="histoire">'.$hist.'</div>');
                     }
             }
             ?>
         </div>
         <a href="produits.php?id=" class="boutton">Accéder aux produits</a>
     </main>
-    <div class="banniere">
+    <div class="bannierefin">
     <img src="img/banniere4.jpg" alt="Bannière test">
   </div>
 <?php
