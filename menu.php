@@ -1,6 +1,6 @@
 <nav class="navbar">
-    <a class="boutique underline" href="#">Le Mika-line</a>
-    <a class="boutique underline" href="#">OK Bonbons</a>
-    <a class="boutique underline" href="#">Saccharo</a>
+    <a class="boutique underline" href="boutiques.php?id=1">Le Mika-line</a>
+    <a class="boutique underline" href="boutiques.php?id=2">OK Bonbons</a>
+    <a class="boutique underline" href="boutiques.php?id=3">Saccharo</a>
 </nav>
 

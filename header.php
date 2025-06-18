@@ -24,4 +24,5 @@
         <a href="#"><i class="cart fa-solid fa-cart-shopping" style="color: #e4322e;"></i></a>
         <a href="#"><i class="user fa-regular fa-user" style="color: #e4322e;"></i></a>
     </div>
-    <img src="img/logocoupé.png" alt="logo La Confiserie" class="logoheader">
+    <a href="index.php"><img src="img/logocoupé.png" alt="logo La Confiserie" class="logoheader"></a>
+    
