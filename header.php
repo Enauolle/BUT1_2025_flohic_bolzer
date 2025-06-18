@@ -25,4 +25,5 @@
         <a href="#"><i class="user fa-regular fa-user" style="color: #e4322e;"></i></a>
     </div>
     <a href="index.php"><img src="img/logocoupé.png" alt="logo La Confiserie" class="logoheader"></a>
+
     
