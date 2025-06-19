@@ -30,7 +30,7 @@ include_once("db.php");
                     }
             }
         
-            echo '<a href="bonbon.php?id=' . $id . '&idc=' . $idc . '">Voir le bonbon</a>';
+            echo '<a href="produits.php?id=' .$id. '" class="boutton">Accéder aux produits</a>';
 
             
             ?>
