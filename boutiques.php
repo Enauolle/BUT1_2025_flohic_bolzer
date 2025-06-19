@@ -29,10 +29,6 @@ include_once("db.php");
                         echo('<div class="histoire">'.$hist.'</div>');
                     }
             }
-            
-            $sqlstock = "SELECT * FROM stocks";
-            $connect = $PDO->query($sqlstock);
-            $numero = $connect->fetchAll();
 
             echo('<a href="produits.php?id='.$id.'" class="boutton">Accéder aux produits</a>');
             ?>
