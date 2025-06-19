@@ -1,33 +1,14 @@
 <?php
+require_once("db.php");
 
 function check_login($login, $password){
-    $password = MD5($password);
-    $result = dbquery("SELECT * FROM utilisateur WHERE username LIKE '$login' AND password LIKE '$password'");
-    
-    if (count($result) > 0){
-        return true;
-    } else{
-        return false;
-    }
+    $password = md5($password);  
+    $result = dbquery("SELECT * FROM utilisateurs WHERE username = ? AND password = ?", [$login, $password]);
+    return count($result) > 0;
 }
 
-function check_role($login, $role){
-    $supergerant = dbquery("SELECT * FROM utilisateur WHERE role LIKE admin") ;
-    $gerant = dbquery("SELECT * FROM utilisateur WHERE role LIKE gerant") ;
-    if ($supergerant == true){
-    header("location: supergerant.php");
-    }
-    elseif ($gerant == true){
-    header("location: gerant.php");
-    }
-    else {
-    header("location: index.php");
-    }
+function check_role($login){
+    $result = dbquery("SELECT role FROM utilisateurs WHERE username = ?", [$login]);
+    return count($result) > 0 ? $result[0]['role'] : null;
 }
-
-            if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]){
-                 echo('<a class="logout-button" href="logout.php">Se déconnecter</a>');
-                 echo('<a class="button" href="index2.php">Interface admin</a>');
-               }
-        
 ?>
