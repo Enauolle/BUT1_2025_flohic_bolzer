@@ -23,6 +23,7 @@ include_once("db.php");
                             $imgc = $confiseries['illustration'];
                             $nomc = $confiseries['nom'];
                             $prix = $confiseries['prix'];
+                            $idc = $confiseries['id'];
                             echo('<div class="carte">');
                             echo('<div class="confis"> <img src="img/img_bdd/'.$imgc.'"/> </div>');
                             echo('<h4>'.$nomc.'</h4>');
@@ -32,7 +33,7 @@ include_once("db.php");
                             echo(''.$prix.'€');
                             echo('</br>');
                             echo('</br>');
-                            echo('<a href="bonbon.php?id='.$id.'" >Voir les détails ></a>');
+                            echo('<a href="bonbon.php?confiserie_id='.$idc.'" >Voir les détails ></a>');
                             echo('</div>');
                   }
                 }
