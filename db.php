@@ -43,11 +43,10 @@ function dbquery($sql, $params = []){
 
 
 
-$id = $_GET['id'] ;
-$idb = isset($_GET['boutique_id']) ? (int) $_GET['boutique_id'] : null;
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $idc = isset($_GET['confiserie_id']) ? (int) $_GET['confiserie_id'] : null;
 
-$sqlboutique = "SELECT * FROM boutiques JOIN stocks ON boutiques.id = stocks.boutique_id" ;
+$sqlboutique = "SELECT * FROM boutiques" ;
 $connection = $PDO->query($sqlboutique);
 $recup = $connection->fetchAll();
 
