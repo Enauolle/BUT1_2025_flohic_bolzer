@@ -27,4 +27,28 @@ function dbquery($sql, $params = []){
     $stmt->execute($params);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$idc = isset($_GET['confiserie_id']) ? (int) $_GET['confiserie_id'] : null;
+
+$sqlboutique = "SELECT * FROM boutiques" ;
+$connection = $PDO->query($sqlboutique);
+$recup = $connection->fetchAll();
+
+$sqlconfiserie = "SELECT * FROM confiseries" ;
+$connection2 = $PDO->query($sqlconfiserie);
+$recup2 = $connection2->fetchAll();
+
+$sqlstocks = "SELECT * FROM stocks JOIN boutiques ON boutiques.id = stocks.boutique_id" ;
+$connection3 = $PDO->query($sqlstocks);
+$recup3 = $connection3->fetchAll();
+
+
+
+
+
 ?>
+
+
+
+
+

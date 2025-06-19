@@ -3,15 +3,15 @@ include_once("header.php");
 include_once("menu.php");
 include_once("db.php");
 
-foreach ($recup3 as $stock) {
+echo('<a href="produits.php?id='.$id.'" class="retour">Retour à la page précedente</a>');
+
   foreach ($recup2 as $confiseries) {
-    if ($stock['confiserie_id'] == $confiseries['id'] && $stock['boutique_id'] == $id) {
+    if ($confiseries['id'] == $idc ) {
       $imgc = $confiseries['illustration'];
       $typec = $confiseries['type'];
       $nomc = $confiseries['nom'];
       $dc = $confiseries['description'];
       $prixc = $confiseries['prix'];
-      echo('<a href="produits.php?id='.$id.'" class="retour">Retour à la page précedente</a>');
       echo('<h1>'.$typec.'</h1>');
       echo('<div class="tout">
               <div class="Bonbon">
@@ -44,43 +44,8 @@ foreach ($recup3 as $stock) {
             </div>');
     }
   }
-}
+
 ?>
-
-
-
-
-<h1>CHOCOLAT</h1>
-<div class="tout">
-  <div class="Bonbon">
-    <div class="carousel">
-      <div class="carousel-images">
-        <img id="TourneImage" src="img/img_bdd/praline.png" alt="Bonbon" class="active">
-      </div>
-    </div>
-    <div class="carousel-dots">
-        <span class="dot active" onclick="rotateImage(0)"></span>
-        <span class="dot" onclick="rotateImage(90)"></span>
-        <span class="dot" onclick="rotateImage(180)"></span>
-        <span class="dot" onclick="rotateImage(270)"></span>
-      </div>
-  </div>
-
-  <div class="info-produit">
-    <h1>CHOCOLAT NOIR</h1>
-    <p>Chocolat Noir À 70% De Cacao</p>
-    <p class="prix">3.99€</p>
-    
-    <div class="quantity-cart">
-      <div class="quantity">
-        <button>-</button>
-        <span>1</span>
-        <button>+</button>
-      </div>
-      <button class="btn-panier">Ajouter Au Panier</button>
-    </div>
-  </div>
-</div>
 
 
 <script>
