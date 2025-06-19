@@ -22,10 +22,27 @@
 
 
 <body>
-    <div class="icones">
-        <a href="#"><i class="cart fa-solid fa-cart-shopping" style="color: #e4322e;"></i></a>
-        <a href="#"><i class="user fa-regular fa-user" style="color: #e4322e;"></i></a>
-    </div>
+
+
+<header>
+    <?php
+
+                if (isset($_SESSION["isConnected"]) && $_SESSION["isConnected"] === true) {
+                    // L'utilisateur est connecté : bouton de déconnexion
+                    echo '<hr class="icones">';
+                    echo '<a href="#"><i class="user fa-regular fa-user" style="color: #e4322e;"></i></a>
+';
+                } 
+
+                else {
+
+                echo '<hr class="iconesmenu-sep">';
+                echo '<a href="#"><i class="cart fa-solid fa-cart-shopping" style="color: #e4322e;"></i></a></a>';
+            }
+
+    ?>
     <a href="index.php"><img src="img/logocoupé.png" alt="logo La Confiserie" class="logoheader"></a>
 
+
+    
     
