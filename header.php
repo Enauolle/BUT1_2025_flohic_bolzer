@@ -1,48 +1,34 @@
 <?php
-    session_start();
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>La Confiserie</title>
-    <link rel="icon" type="image/x-icon" href="img/logoico.ico">
-
-    <link href="css/mn.css" rel="stylesheet">
-    <link href="css/header.css" rel="stylesheet">
-    <link href="css/footer.css" rel="stylesheet">
-    <link href="css/menu.css" rel="stylesheet">
-    <link href="css/boutique.css" rel="stylesheet">
-    <link href="css/bonbon.css" rel="stylesheet">
-    <link href="css/login.css" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/goudy-old-style" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="img/logoico.ico" />
+    <link href="css/mn.css" rel="stylesheet" />
+    <link href="css/header.css" rel="stylesheet" />
+    <link href="css/footer.css" rel="stylesheet" />
+    <link href="css/menu.css" rel="stylesheet" />
+    <link href="css/boutique.css" rel="stylesheet" />
+    <link href="css/bonbon.css" rel="stylesheet" />
+    <link href="css/login.css" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/goudy-old-style" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/08b10a2ab2.js" crossorigin="anonymous"></script>
 </head>
-
-
 <body>
-
-
 <header>
-    <?php
+    <hr class="menu-sep" />
+    <div class="icones">
+        <a href="#"><i class="cart fa-solid fa-cart-shopping"></i></a>
+        <?php if (isset($_SESSION["isConnected"]) && $_SESSION["isConnected"] === true): ?>
+            <a href="logout.php" class="contact-button deco-button">Se déconnecter</a>
+        <?php else: ?>
+            <a href="login.php" title="Se connecter"><i class="user fa-regular fa-user"></i></a>
+        <?php endif; ?>
+    </div>
 
-                if (isset($_SESSION["isConnected"]) && $_SESSION["isConnected"] === true) {
-                    // L'utilisateur est connecté : bouton de déconnexion
-                    echo '<hr class="icones">';
-                    echo '<a href="#"><i class="user fa-regular fa-user" style="color: #e4322e;"></i></a>
-';
-                } 
-
-                else {
-
-                echo '<hr class="iconesmenu-sep">';
-                echo '<a href="#"><i class="cart fa-solid fa-cart-shopping" style="color: #e4322e;"></i></a></a>';
-            }
-
-    ?>
-    <a href="index.php"><img src="img/logocoupé.png" alt="logo La Confiserie" class="logoheader"></a>
-
-
-    
-    
+    <a href="index.php"><img src="img/logocoupé.png" alt="logo La Confiserie" class="logoheader" /></a>
+</header>
