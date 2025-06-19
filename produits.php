@@ -33,6 +33,7 @@ include_once("db.php");
                             echo(''.$prix.'€');
                             echo('</br>');
                             echo('</br>');
+                            //echo '<a href="bonbon.php?id=' . $id . '&idc=' . $idc . '">Voir le bonbon</a>';
                             echo('<a href="bonbon.php?confiserie_id='.$idc.'" >Voir les détails ></a>');
                             echo('</div>');
                   }
