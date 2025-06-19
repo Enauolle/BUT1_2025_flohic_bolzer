@@ -1,26 +1,39 @@
+.retour{
+    display: flex;
+    margin-top: 20px;
+    text-decoration: none;
+    color: inherit;
+    cursor: default;
+    font-size: 1.5rem;
+    margin: 2%;
+}
+
+.retour:hover {
+    color: #d54f3f;
+}
+
 h1 {
-  font-size: 2rem;
-  font-weight: bold;
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 .tout {
   display: flex;
-  align-items: flex-start; 
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: space-between;
   gap: 50px;
   padding: 40px;
 }
 
 .carousel {
   position: relative;
-  width: 800px;
-  height: 800px;
+  width: 600px;
   overflow: hidden;
-  border: 1px solid #000;
+  border: 1px solid #bfbfbf;
+  left: 10%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 5%;
 }
 
 .carousel-images {
@@ -31,19 +44,20 @@ h1 {
 
 .carousel-images img {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: contain;
   transition: transform 0.4s ease-in-out;
 }
 
+
 .carousel-dots {
   position: absolute;;
-  top: 80%;
+  top: 100%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin: 2%;
+  margin: 1%;
 }
 
 .carousel-dots .dot {
@@ -59,27 +73,27 @@ h1 {
   opacity: 1;
 }
 
-
 .info-produit {
   display: flex;
   flex-direction: column;
-  gap: 31.25px;
-  margin: 2.5%;
-  font-size: 1.75rem;
+  gap: 15px;
+  font-size: 2rem;
   justify-content: center;
   text-align: left;
+  margin-right: 5%;
   margin-left: 10%;
+  width: 100%;
 }
 
 .info-produit h1 {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: bold;
   margin: 0;
   text-align: left;
 }
 
 .info-produit p {
-  font-size: 1.75rem;
+  font-size: 1.25rem;
   margin: 0;
   text-align: left;
 }
@@ -87,34 +101,47 @@ h1 {
 .info-produit .prix {
   color: red;
   font-weight: bold;
-  font-size: 2.25rem;
+  font-size: 1.5rem;
   text-align: left;
+  margin: 0;
 }
 
 .quantity-cart {
   display: flex;
   align-items: center;
-  gap: 31.25px;
-  margin-top: 37.5px;
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 5px 10px;
 }
 
 .quantity button {
-  padding: 12.5px 18.75px;
-  font-size: 1.75rem;
+  all: unset;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 5px 10px;
 }
 
 .quantity span {
-  padding: 0 18.75px;
-  font-size: 1.75rem;
+  padding: 0 10px;
+  font-size: 1.5rem;
+  min-width: 20px;
+  text-align: center;
 }
 
 .btn-panier {
-  padding: 18.75px 37.5px;
+  padding: 15px 40px;
   background-color: #d54f3f;
   color: white;
   border: none;
   border-radius: 10px;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   cursor: pointer;
 }
-
