@@ -1,12 +1,14 @@
 <?php
 include_once("header.php");
 include_once("menu.php");
-?>
+include_once("db.php");
 
-<main>
-    <h1>Nom de la Boutique du gérant</h1>
-</main>
+    foreach ($recup4 as $user) {
+        if ($user['role'] == 'gérant'){
 
-<?php
+        }
+    }
+    
+
 include_once("footer.php");
 ?>
