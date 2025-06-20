@@ -1,8 +1,19 @@
+header {
+    position: relative;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.logoheader {
+    width: 100px;
+    height: auto;
+}
+
 .icones {
+    position: absolute;
+    top: 20px;
+    right: 20px;
     display: flex;
-    justify-content: flex-end;
-    margin-top: 2%;
-    margin-right: 2%;
     gap: 15px;
     align-items: center;
 }
@@ -13,13 +24,14 @@
     cursor: pointer;
 }
 
-.deco-button {
-    color: #e4322e;
-    border: 1px solid #e4322e;
+.deco {
+    font-family: 'Goudy Old Style', serif;
+    background-color: #e4322e;
+    color: white;
     padding: 6px 12px;
     border-radius: 4px;
+    font-size: 14px;
     text-decoration: none;
-    font-weight: bold;
-    font-family: 'Goudy Old Style', serif;
+    background-color: transparent;
     cursor: pointer;
 }

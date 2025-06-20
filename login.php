@@ -22,7 +22,7 @@ include_once("fonction.php");
                 $password = $_POST["password"];
 
                 if (check_login($login, $password)) {
-                    $_SESSION["loggedin"] = true;
+                    $_SESSION["isConnected"] = true;
                     $_SESSION["username"] = $login;
                     header("Location: index.php");
                     exit();

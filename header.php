@@ -20,15 +20,19 @@ session_start();
 </head>
 <body>
 <header>
-    <hr class="menu-sep" />
     <div class="icones">
         <a href="#"><i class="cart fa-solid fa-cart-shopping"></i></a>
+
         <?php if (isset($_SESSION["isConnected"]) && $_SESSION["isConnected"] === true): ?>
-            <a href="logout.php" class="contact-button deco-button">Se déconnecter</a>
+            <a href="logout.php" class="deco">Se déconnecter</a>
         <?php else: ?>
-            <a href="login.php" title="Se connecter"><i class="user fa-regular fa-user"></i></a>
+            <a href="login.php" title="Se connecter">
+                <i class="user fa-regular fa-user"></i>
+            </a>
         <?php endif; ?>
     </div>
 
-    <a href="index.php"><img src="img/logocoupé.png" alt="logo La Confiserie" class="logoheader" /></a>
+    <a href="index.php">
+        <img src="img/logocoupé.png" alt="logo La Confiserie" class="logoheader" />
+    </a>
 </header>
