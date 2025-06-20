@@ -3,6 +3,36 @@ include_once("header.php");
 include_once("fonction.php");
 ?>
 
+
+<?php
+if (isset($_POST["login"], $_POST["password"])) {
+    $login = $_POST["login"];
+    $password = $_POST["password"];
+
+    $user = check_login($login, $password);
+
+    if ($user) {
+        $_SESSION["isConnected"] = true;
+        $_SESSION["username"] = $user['username'];
+        $_SESSION["role"] = $user['role'];
+
+        if ($user['role'] === 'gerant') {
+            header("Location: gerant.php");
+            exit();
+        }elseif ($user['role'] === 'supergerant') {
+            header("Location: supergerant.php");
+            exit();
+        } else {
+            header("Location: index.php");
+            exit();
+        }
+    } else {
+        $error = "Mauvais nom d'utilisateur ou mot de passe.";
+    }
+}
+
+?>
+
 <main>
     <div class="log-container">
         <form method="POST" action="">
@@ -16,34 +46,9 @@ include_once("fonction.php");
 
             <button type="submit">Se connecter</button>
 
-            <?php
-            if (isset($_POST["login"]) && isset($_POST["password"])) {
-                $login = $_POST["login"];
-                $password = $_POST["password"];
-                $role = $_POST["role"];
-
-                if (check_login($login, $password)) {
-                    $_SESSION["isConnected"] = true;
-                    $_SESSION["username"] = $login;
-                    header("Location: index.php");
-                    exit();
-                } 
-                elseif (check_login($login, $password, $role)){
-                    $_SESSION["loggedin"] = true;
-                    $_SESSION["username"] = $login;
-                    $_SESSION["role"] = 'gerant';
-                    header("Location: gerant.php");
-                }
-                else {
-                    $_SESSION["error"] = "Mauvais nom d'utilisateur ou mot de passe.";
-                }
-            }
-
-            if (!empty($_SESSION["error"])) {
-                echo "<p class='error'>" . $_SESSION["error"] . "</p>";
-                unset($_SESSION["error"]);
-            }
-            ?>
+            <?php if (!empty($error)) : ?>
+                <p class="error"><?= htmlspecialchars($error) ?></p>
+            <?php endif; ?>
         </form>
     </div>
 </main>
