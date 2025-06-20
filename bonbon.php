@@ -3,7 +3,10 @@ include_once("header.php");
 include_once("menu.php");
 include_once("db.php");
 
-echo('<a href="produits.php?id='.$id.'" class="retour">Retour à la page précedente</a>');
+ foreach ($recup3 as $stock) {
+                    foreach ($recup2 as $confiseries) {
+                        if ($stock['confiserie_id'] == $confiseries['id'] && $stock['boutique_id'] == $id) {
+                          echo('<a href="produits.php?id='.$id.'" class="retour">Retour à la page précedente</a>'); } } }
 
   foreach ($recup2 as $confiseries) {
     if ($confiseries['id'] == $idc ) {
@@ -12,6 +15,7 @@ echo('<a href="produits.php?id='.$id.'" class="retour">Retour à la page préced
       $nomc = $confiseries['nom'];
       $dc = $confiseries['description'];
       $prixc = $confiseries['prix'];
+      $stocks = $stock['quantite'];
       echo('<h1>'.$typec.'</h1>');
       echo('<div class="tout">
               <div class="Bonbon">
@@ -31,6 +35,7 @@ echo('<a href="produits.php?id='.$id.'" class="retour">Retour à la page préced
             echo('<h1>'.$nomc.'</h1>');
             echo('<p>'.$dc.'</p>');
             echo('<p class="prix">'.$prixc.'€ </p>');
+            echo('<p>'.$stocks.' restants</p>');
 
             echo('<div class="quantity-cart">
                     <div class="quantity">

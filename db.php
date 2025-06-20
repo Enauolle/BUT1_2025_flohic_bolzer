@@ -42,6 +42,10 @@ $sqlstocks = "SELECT * FROM stocks JOIN boutiques ON boutiques.id = stocks.bouti
 $connection3 = $PDO->query($sqlstocks);
 $recup3 = $connection3->fetchAll();
 
+$sqluser = "SELECT * FROM utilisateurs";
+$connection4 = $PDO->query($sqluser);
+$recup4 = $connection4->fetchAll();
+
 
 
 
