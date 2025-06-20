@@ -19,7 +19,7 @@ if (isset($_POST["login"], $_POST["password"])) {
         if ($user['role'] === 'gerant') {
             header("Location: gerant.php");
             exit();
-        }elseif ($user['role'] === 'supergerant') {
+        } elseif ($user['role'] === 'admin') {
             header("Location: supergerant.php");
             exit();
         } else {

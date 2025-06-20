@@ -1,0 +1,54 @@
+
+.boutiques {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  background-color: white;
+}
+
+.boutique {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.boutique img {
+  width: 100%;
+  height: 550px;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 3%;
+  transition: filter 0.3s ease;
+}
+
+.boutique:hover img {
+  filter: brightness(50%);
+}
+
+.boutique h2 {
+  font-size: 1.1rem;
+  color: black;
+  font-weight: normal;
+  margin: 5px 0;
+}
+
+.voir-plus {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  padding: 5px 12px;
+  font-size: 2rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.boutique:hover .voir-plus {
+  opacity: 1;
+}
+

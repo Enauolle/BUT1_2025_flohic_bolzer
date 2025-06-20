@@ -5,7 +5,7 @@ function check_login($login, $password){
     $password = md5($password);
     $result = dbquery("SELECT * FROM utilisateurs WHERE username = ? AND password = ?", [$login, $password]);
     if (count($result) > 0) {
-        return $result[0];  // renvoie tableau avec id, username, role, etc.
+        return $result[0];  
     }
     return false;
 }
