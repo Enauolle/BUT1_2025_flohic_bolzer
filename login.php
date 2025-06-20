@@ -20,13 +20,21 @@ include_once("fonction.php");
             if (isset($_POST["login"]) && isset($_POST["password"])) {
                 $login = $_POST["login"];
                 $password = $_POST["password"];
+                $role = $_POST["role"];
 
                 if (check_login($login, $password)) {
                     $_SESSION["isConnected"] = true;
                     $_SESSION["username"] = $login;
                     header("Location: index.php");
                     exit();
-                } else {
+                } 
+                elseif (check_login($login, $password, $role)){
+                    $_SESSION["loggedin"] = true;
+                    $_SESSION["username"] = $login;
+                    $_SESSION["role"] = 'gerant';
+                    header("Location: gerant.php");
+                }
+                else {
                     $_SESSION["error"] = "Mauvais nom d'utilisateur ou mot de passe.";
                 }
             }
