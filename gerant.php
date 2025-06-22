@@ -2,10 +2,16 @@
 include_once("header.php");
 include_once("menu.php");
 include_once("db.php");
+
+foreach($recup4 as $user){
+    foreach($recup as $boutiques){
+            if ($boutiques['id'] == $id && $user['id'] == $id) {
+                $nomb = $boutiques['nom'];
+                echo('<h1>'.$nomb.'</h1>');
+                }
+            }
+}
 ?>
-
-<h1>La Mika-Line</h1>
-
 <div class="dropdown">
     <button class="ajout" id="bouton"> 
         Ajouter un bonbon
