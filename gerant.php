@@ -23,6 +23,13 @@ if (isset($_POST['supp'])) {
     $PDO->query($sqlsupp);
 }
 
+if (isset($_POST['bonbon'])) {
+    $idp = intval($_POST['id_produit']);
+    $id_boutique = intval($_POST['id_boutique']);
+
+    $stmt = $PDO->prepare("INSERT INTO stocks (confiserie_id, boutique_id, quantite) VALUES (?, ?, 1)");
+    $stmt->execute([$idp, $id_boutique]);
+}
 
 
 foreach($recup as $boutiques){
@@ -34,24 +41,17 @@ foreach($recup as $boutiques){
 
 ?>
 
-    <div class="dropdown">
-    <button class="ajout" id="bouton"> 
-        Ajouter un bonbon
-    </button>
-  <div class="hidden" id="dropdownMenu">
-    <form method="post" action="">
-        <input type="hidden" name="id_produit" value="<?php echo $stock['confiserie_id']; ?>">
-        <input type="hidden" name="id_boutique" value="<?php echo $stock['boutique_id']; ?>">
-    <?php
-        foreach ($recup2 as $confiseries) {
-            $nomc = $confiseries['nom'];
-            $idc = $confiseries['id'];
-            echo('<button type="submit" name="bonbon" class="bon">'.$nomc.'</button>');
-        }
-           
-    ?>
-    </form>
-  </div>
+<div class="dropdown">
+    <button class="ajout" id="bouton">Ajouter un bonbon</button>
+    <div class="hidden" id="dropdownMenu">
+        <?php foreach ($recup2 as $confiseries){ ?>
+            <form method="post" action="">
+                <input type="hidden" name="id_produit" value="<?php echo($confiseries['id']) ?>">
+                <input type="hidden" name="id_boutique" value="<?php echo($idg) ?>"> <!-- idg = ID de la boutique -->
+                <button type="submit" name="bonbon" class="bon"><?php echo($confiseries['nom']) ?></button>
+            </form>
+        <?php } ?>
+    </div>
 </div>
 
 
