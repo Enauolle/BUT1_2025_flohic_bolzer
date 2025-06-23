@@ -45,8 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $success = $stmt->execute([
                     $nom, $utilisateur_id, $numero_rue, $nom_adresse, $code_postal,
-                    $ville, $pays, $photoPath, $histoire
-                ]);
+                    $ville, $pays, $fileName,
+                    $histoire
+]);
+                
 
                 if ($success) {
                     header("Location: supergerant.php?ajout=ok");
