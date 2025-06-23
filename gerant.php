@@ -23,13 +23,7 @@ if (isset($_POST['supp'])) {
     $PDO->query($sqlsupp);
 }
 
-if (isset($_POST['bonbon'])) {
-    $idc = $_POST['id_produit'] ;
-    $id_boutique = $_POST['id_boutique'];
 
-    $sqladd = "INSERT INTO stocks (confiserie_id, boutique_id) VALUES ($idc, $id_boutique)";
-    $PDO->query($sqladd);
-}
 
 foreach($recup as $boutiques){
                 if ($boutiques['id'] == $idg) {
