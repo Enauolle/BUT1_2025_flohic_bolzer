@@ -2,8 +2,7 @@
 include_once("header.php");
 include_once("menu.php");
 ?>
-  
-  
+
 
 <div class="banniere">
     <img src="img/banniere.jpg" alt="Bannière">
@@ -17,6 +16,52 @@ include_once("menu.php");
 <div class="titre2"> 
     <h2>NOS BOUTIQUES</h2>
 </div>
+
+<?php
+require_once 'db.php';
+
+?>
+<div class="boutiques">
+    <?php foreach($recup as $boutique): ?>
+        <div class="boutique">
+            <a href="boutiques.php?id=<?php echo htmlspecialchars($boutique['id']); ?>">
+                <?php
+                    $baseName = $boutique['illustration'];
+                    $imageDir = 'img/img_bdd/';
+                    $image = $imageDir . 'default.jpg'; 
+
+                    if (!empty($baseName)) {
+                        if (file_exists($imageDir . $baseName)) {
+                            $image = $imageDir . $baseName;
+                        } else {
+                            $baseNoExt = pathinfo($baseName, PATHINFO_FILENAME); // enleve extension s'il y en a
+                            if (file_exists($imageDir . $baseNoExt . '.jpg')) {
+                                $image = $imageDir . $baseNoExt . '.jpg';
+                            } elseif (file_exists($imageDir . $baseNoExt . '.png')) {
+                                $image = $imageDir . $baseNoExt . '.png';
+                            }
+                        }
+                    }
+                ?>
+                <img src="<?php echo htmlspecialchars($image); ?>" 
+                     alt="<?php echo htmlspecialchars($boutique['nom']); ?>">
+                <h3><?php echo htmlspecialchars($boutique['nom']); ?></h3>
+                <span class="voir-plus">Voir plus &gt;</span>
+            </a>
+        </div>
+    <?php endforeach; ?>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 <div class="boutiques">
     <div class="boutique">
         <a href="boutiques.php?id=1">
