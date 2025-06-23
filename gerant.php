@@ -83,7 +83,7 @@ foreach($recup as $boutiques){
                                 <input type="hidden" name="id_produit" value="<?php echo $stock['confiserie_id']; ?>">
                                 <input type="hidden" name="id_boutique" value="<?php echo $stock['boutique_id']; ?>">
                                 <button type="submit" name="changer">Changer le stock</button>
-                                <button type="submit" name="supp">Supprimer</button>
+                                <button class="supp" type="submit" name="supp">Supprimer</button>
                             </form>
 
 <?php
