@@ -3,8 +3,45 @@ include_once("header.php");
 include_once("menu.php");
 include_once("db.php");
 
+<<<<<<< HEAD
 $user = $_SESSION['user'] ?? ['role' => 'guest']; // rôle par défaut si non connecté
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+=======
+$id = $_GET['id'];
+$idc = $_GET['confiserie_id'];
+
+
+?>
+        <div class= "infob">
+            <?php
+                foreach($recup as $boutiques){
+                    if ($boutiques['id'] == $id) {
+                        $nomb = $boutiques['nom'];
+                        $imgb = $boutiques['illustration'];
+                        $hist = $boutiques['histoire'];
+                        echo('<h1>'.$nomb.'</h1>');
+                        echo('<div class="banniere"> <img src="img/img_bdd/'.$imgb.'"/> </div>');
+                        echo('<div class="infoloca">');
+                        echo($boutiques['code_postal']);
+                        echo("</br>");
+                        echo($boutiques['numero_rue']);
+                        echo(" ");
+                        echo($boutiques['nom_adresse']);
+                        echo("</br>");
+                        echo($boutiques['ville']);
+                        echo(" ");
+                        echo($boutiques['pays']);
+                        echo("</br>");
+                        echo('Horaires : 8h00 - 19h00 du lundi au samedi');
+                        echo("</div>");
+                        echo("</br>");
+                        echo("</br>");
+                        echo('<div class="histoire">'.$hist.'</div>');
+                    }
+            }
+        
+            echo '<a href="produits.php?id=' .$id. '" class="boutton">Accéder aux produits</a>';
+>>>>>>> d21fd62b83fdd38c1d8fe7a898a91119916c396d
 
 $boutiqueTrouvee = null;
 foreach ($recup as $boutique) {

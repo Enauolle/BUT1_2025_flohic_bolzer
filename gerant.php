@@ -3,15 +3,39 @@ include_once("header.php");
 include_once("menu.php");
 include_once("db.php");
 
-foreach($recup4 as $user){
+$idg = $_GET['idg'];
+$idc = $_GET['confiserie_id'];
+
+if (isset($_POST['changer'])) {
+    $nv_quantite = $_POST['nouvelle_quantite'];
+    $idc = $_POST['id_produit'];
+    $id_boutique = $_POST['id_boutique'];
+
+    $sqlajout = "UPDATE stocks SET quantite = $nv_quantite WHERE confiserie_id = $idc AND boutique_id = $id_boutique";
+    $PDO->query($sqlajout);
+}
+
+if (isset($_POST['supp'])) {
+    $idc = $_POST['id_produit'];
+    $id_boutique = $_POST['id_boutique'];
+
+    $sqlsupp = "DELETE FROM stocks WHERE confiserie_id = $idc AND boutique_id = $id_boutique";
+    $PDO->query($sqlsupp);
+}
+
+
     foreach($recup as $boutiques){
-            if ($boutiques['id'] == $id && $user['id'] == $id) {
+            if ($boutiques['id'] == $idg) {
                 $nomb = $boutiques['nom'];
                 echo('<h1>'.$nomb.'</h1>');
                 }
             }
-}
+
 ?>
+<form method="post" action="">
+
+</form>
+
 <div class="dropdown">
     <button class="ajout" id="bouton"> 
         Ajouter un bonbon
@@ -33,7 +57,7 @@ foreach($recup4 as $user){
 <?php
     foreach ($recup3 as $stock) {
                     foreach ($recup2 as $confiseries) {
-                        if ($stock['confiserie_id'] == $confiseries['id'] && $stock['boutique_id'] == 1) {
+                        if ($stock['confiserie_id'] == $confiseries['id'] && $stock['boutique_id'] == $idg) {
                             $imgc = $confiseries['illustration'];
                             $nomc = $confiseries['nom'];
                             $prix = $confiseries['prix'];
@@ -48,6 +72,16 @@ foreach($recup4 as $user){
                             echo('</br>');
                             echo('</br>');
                             echo('<a href="bonbon.php?confiserie_id='.$idc.'" >Voir les détails ></a>');
+                            ?>
+                            <form method="post" action="">
+                                <input type="number" name="nouvelle_quantite" value="<?php echo $stock['quantite']; ?>" min="0">
+                                <input type="hidden" name="id_produit" value="<?php echo $stock['confiserie_id']; ?>">
+                                <input type="hidden" name="id_boutique" value="<?php echo $stock['boutique_id']; ?>">
+                                <button type="submit" name="changer">Changer le stock</button>
+                                <button type="submit" name="supp">Supprimer</button>
+                            </form>
+
+<?php
                             echo('</div>');
                   }
                 }

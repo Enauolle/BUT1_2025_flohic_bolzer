@@ -27,8 +27,6 @@ function dbquery($sql, $params = []){
     $stmt->execute($params);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$idc = isset($_GET['confiserie_id']) ? (int) $_GET['confiserie_id'] : null;
 
 $sqlboutique = "SELECT * FROM boutiques" ;
 $connection = $PDO->query($sqlboutique);
@@ -45,9 +43,6 @@ $recup3 = $connection3->fetchAll();
 $sqluser = "SELECT * FROM utilisateurs";
 $connection4 = $PDO->query($sqluser);
 $recup4 = $connection4->fetchAll();
-
-
-
 
 
 ?>

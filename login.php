@@ -1,6 +1,7 @@
 <?php
 include_once("header.php");
 include_once("fonction.php");
+include_once("db.php");
 ?>
 
 
@@ -15,9 +16,11 @@ if (isset($_POST["login"], $_POST["password"])) {
         $_SESSION["isConnected"] = true;
         $_SESSION["username"] = $user['username'];
         $_SESSION["role"] = $user['role'];
+        $_SESSION["id"] = $user['id'];
+        $idd = $_SESSION["id"];
 
         if ($user['role'] === 'gerant') {
-            header("Location: gerant.php");
+            header("Location: gerant.php?idg=".$idd);
             exit();
         } elseif ($user['role'] === 'admin') {
             header("Location: supergerant.php");

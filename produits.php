@@ -3,6 +3,10 @@ include_once("header.php");
 include_once("menu.php");
 include_once("db.php");
 
+$id = $_GET['id'];
+$idc = $_GET['confiserie_id'];
+
+
 ?>
     <div class="titrepro">
         <?php
