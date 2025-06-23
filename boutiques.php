@@ -3,10 +3,8 @@ include_once("header.php");
 include_once("menu.php");
 include_once("db.php");
 
-<<<<<<< HEAD
 $user = $_SESSION['user'] ?? ['role' => 'guest']; // rôle par défaut si non connecté
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-=======
+
 $id = $_GET['id'];
 $idc = $_GET['confiserie_id'];
 
@@ -41,7 +39,15 @@ $idc = $_GET['confiserie_id'];
             }
         
             echo '<a href="produits.php?id=' .$id. '" class="boutton">Accéder aux produits</a>';
->>>>>>> d21fd62b83fdd38c1d8fe7a898a91119916c396d
+
+            
+            ?>
+        </div>
+    <div class="bannierefin">
+    <img src="img/banniere4.jpg" alt="Bannière test">
+  </div>
+<?php
+include_once("footer.php");
 
 $boutiqueTrouvee = null;
 foreach ($recup as $boutique) {

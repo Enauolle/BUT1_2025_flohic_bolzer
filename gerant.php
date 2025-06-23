@@ -24,15 +24,16 @@ if (isset($_POST['supp'])) {
 }
 
 
-    foreach($recup as $boutiques){
-            if ($boutiques['id'] == $idg) {
-                $nomb = $boutiques['nom'];
-                echo('<h1>'.$nomb.'</h1>');
-                }
-            }
-
 ?>
 <form method="post" action="">
+    <?php
+        foreach($recup as $boutiques){
+                    if ($boutiques['id'] == $idg) {
+                        $nomb = $boutiques['nom'];
+                        echo('<h1>'.$nomb.'</h1>');
+                        }
+                    }
+    ?>
 
 </form>
 
