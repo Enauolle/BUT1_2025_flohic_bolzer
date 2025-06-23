@@ -7,87 +7,102 @@ if (!isset($PDO) || $PDO === null) {
     die("Erreur : Connexion à la base de données non établie.");
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nom = $_POST['nom'];
-    $utilisateur_id = $_POST['utilisateur_id'];
-    $numero_rue = $_POST['numero_rue'];
-    $nom_adresse = $_POST['nom_adresse'];
-    $code_postal = $_POST['code_postal'];
-    $ville = $_POST['ville'];
-    $pays = $_POST['pays'];
-    $histoire = $_POST['histoire'];
+// Handle boutique deletion
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supp']) && isset($_POST['id_boutique'])) {
+    $idb = (int)$_POST['id_boutique'];
 
-    $image = $_FILES['illustration'];
+    // Check if boutique has zero stock before deleting (extra safety)
+    $stmtCheck = $PDO->prepare("SELECT COUNT(*) FROM stocks WHERE boutique_id = ?");
+    $stmtCheck->execute([$idb]);
+    $stockCount = (int)$stmtCheck->fetchColumn();
 
-    $ext = pathinfo($image['name'], PATHINFO_EXTENSION);
-    $allowedExts = ['jpg', 'jpeg', 'png', 'gif'];
-
-    if (!in_array(strtolower($ext), $allowedExts)) {
-        echo "<p style='color:red;'>Type de fichier non autorisé.</p>";
-    } elseif ($image['error'] !== UPLOAD_ERR_OK) {
-        echo "<p style='color:red;'>Erreur lors de l'upload de la photo. Code erreur: " . $image['error'] . "</p>";
+    if ($stockCount === 0) {
+        $stmtDel = $PDO->prepare("DELETE FROM boutiques WHERE id = ?");
+        $stmtDel->execute([$idb]);
+        header("Location: supergerant.php?deleted=ok");
+        exit;
     } else {
-        $fileName = time() . '_' . uniqid() . '.' . $ext;
-        $targetDir = "img/img_bdd/";
-        $photoPath = $targetDir . $fileName;
+        echo "<p style='color:red;'>Impossible de supprimer une boutique avec du stock.</p>";
+    }
+}
 
-        if (!is_dir($targetDir)) {
-            mkdir($targetDir, 0755, true);
-        }
+// Handle adding new boutique
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_boutique'])) {
+    $nom = $_POST['nom'] ?? '';
+    $utilisateur_id = $_POST['utilisateur_id'] ?? '';
+    $numero_rue = $_POST['numero_rue'] ?? '';
+    $nom_adresse = $_POST['nom_adresse'] ?? '';
+    $code_postal = $_POST['code_postal'] ?? '';
+    $ville = $_POST['ville'] ?? '';
+    $pays = $_POST['pays'] ?? '';
+    $histoire = $_POST['histoire'] ?? '';
 
-        if (move_uploaded_file($image['tmp_name'], $photoPath)) {
-            try {
-                $stmt = $PDO->prepare("
-                    INSERT INTO boutiques (
-                        nom, utilisateur_id, numero_rue, nom_adresse, code_postal, ville, pays, illustration, histoire
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                ");
+    $image = $_FILES['illustration'] ?? null;
 
-                $success = $stmt->execute([
-                    $nom, $utilisateur_id, $numero_rue, $nom_adresse, $code_postal,
-                    $ville, $pays, $fileName,
-                    $histoire
-]);
-                
-
-                if ($success) {
-                    header("Location: supergerant.php?ajout=ok");
-                    exit;
-                } else {
-                    echo "<p style='color:red;'>Erreur lors de l'ajout en base de données.</p>";
-                }
-            } catch (PDOException $e) {
-                echo "<p style='color:red;'>Erreur base de données : " . $e->getMessage() . "</p>";
+    // Validate and handle image upload
+    $fileName = '';
+    if ($image && $image['error'] === UPLOAD_ERR_OK) {
+        $ext = strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
+        $allowedExts = ['jpg', 'jpeg', 'png', 'gif'];
+        if (in_array($ext, $allowedExts)) {
+            $fileName = time() . '_' . uniqid() . '.' . $ext;
+            $targetDir = "img/img_bdd/";
+            if (!is_dir($targetDir)) mkdir($targetDir, 0755, true);
+            $photoPath = $targetDir . $fileName;
+            if (!move_uploaded_file($image['tmp_name'], $photoPath)) {
+                echo "<p style='color:red;'>Erreur lors du déplacement du fichier uploadé.</p>";
             }
         } else {
-            echo "<p style='color:red;'>Erreur lors du déplacement du fichier uploadé.</p>";
+            echo "<p style='color:red;'>Type de fichier non autorisé.</p>";
+        }
+    } else {
+        echo "<p style='color:red;'>Veuillez télécharger une photo de la boutique.</p>";
+    }
+
+    if ($fileName) {
+        // Insert into DB
+        $stmt = $PDO->prepare("
+            INSERT INTO boutiques 
+            (nom, utilisateur_id, numero_rue, nom_adresse, code_postal, ville, pays, illustration, histoire)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ");
+        $success = $stmt->execute([
+            $nom, $utilisateur_id, $numero_rue, $nom_adresse, $code_postal,
+            $ville, $pays, $fileName, $histoire
+        ]);
+
+        if ($success) {
+            header("Location: supergerant.php?ajout=ok");
+            exit;
+        } else {
+            echo "<p style='color:red;'>Erreur lors de l'ajout en base de données.</p>";
         }
     }
 }
+
+$stmtBoutiques = $PDO->query("SELECT * FROM boutiques ORDER BY nom");
+$recup = $stmtBoutiques->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <div class="titre2"> 
     <h2>NOS BOUTIQUES</h2>
 </div>
 
-<?php
-require_once 'db.php';
-
-?>
 <div class="boutiques">
-    <?php foreach($recup as $boutique): ?>
+    <?php foreach ($recup as $boutique): ?>
         <div class="boutique">
-            <a href="boutiques.php?id=<?php echo htmlspecialchars($boutique['id']); ?>">
+            <a href="boutiques.php?id=<?= htmlspecialchars($boutique['id']) ?>">
                 <?php
                     $baseName = $boutique['illustration'];
                     $imageDir = 'img/img_bdd/';
-                    $image = $imageDir . 'default.jpg'; 
+                    $image = $imageDir . 'default.jpg';
 
                     if (!empty($baseName)) {
                         if (file_exists($imageDir . $baseName)) {
                             $image = $imageDir . $baseName;
                         } else {
-                            $baseNoExt = pathinfo($baseName, PATHINFO_FILENAME); // enleve extension s'il y en a
+                            $baseNoExt = pathinfo($baseName, PATHINFO_FILENAME);
                             if (file_exists($imageDir . $baseNoExt . '.jpg')) {
                                 $image = $imageDir . $baseNoExt . '.jpg';
                             } elseif (file_exists($imageDir . $baseNoExt . '.png')) {
@@ -96,20 +111,36 @@ require_once 'db.php';
                         }
                     }
                 ?>
-                <img src="<?php echo htmlspecialchars($image); ?>" 
-                     alt="<?php echo htmlspecialchars($boutique['nom']); ?>">
-                <h3><?php echo htmlspecialchars($boutique['nom']); ?></h3>
+
+
+
+
+
+
+
+                <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($boutique['nom']) ?>">
+                <h3><?= htmlspecialchars($boutique['nom']) ?></h3>
                 <span class="voir-plus">Voir plus &gt;</span>
             </a>
+
+            <?php
+                $stmtStock = $PDO->prepare("SELECT COUNT(*) FROM stocks WHERE boutique_id = ?");
+                $stmtStock->execute([$boutique['id']]);
+                $stockCount = (int)$stmtStock->fetchColumn();
+
+                if ($stockCount === 0):
+            ?>
+                <form method="POST" onsubmit="return confirm('Confirmer la suppression ?');" style="margin-top:10px;">
+                    <input type="hidden" name="id_boutique" value="<?= htmlspecialchars($boutique['id']) ?>">
+                    <button type="submit" name="supp" class="boutton-supprimer">Supprimer</button>
+                </form>
+            <?php endif; ?>
         </div>
     <?php endforeach; ?>
 </div>
 
+<div class="trait" ></div>
 
-
-<div class="banniere">
-    <img src="img/banniere2.jpg" alt="Bannière">
-</div>
 
 <button class="ajouter" id="openFormBtn">Ajouter une boutique</button>
 
@@ -118,13 +149,14 @@ require_once 'db.php';
         <button id="closePopup" class="close-btn">&times;</button>
         <h3>Ajouter une boutique</h3>
         <form method="POST" action="" enctype="multipart/form-data">
+            <input type="hidden" name="add_boutique" value="1" />
             <div class="form-group full-width">
                 <label for="nom">Nom de la boutique :</label>
                 <input type="text" id="nom" name="nom" required />
             </div>
             <div class="form-group full-width">
                 <label for="utilisateur_id">ID du gérant :</label>
-                <input type="text" id="utilisateur_id" name="utilisateur_id" required />
+                <input type="number" id="utilisateur_id" name="utilisateur_id" required />
             </div>
             <div class="form-group full-width">
                 <label for="numero_rue">Numéro de rue :</label>
@@ -158,22 +190,10 @@ require_once 'db.php';
         </form>
     </div>
 </div>
-
-
-
-<?php
-if (isset($_POST['supp'])) {
-    $idb = $_POST['id_boutique'];
-
-    $sqlsupp = "DELETE FROM boutiques WHERE boutiques_id = $idb" ;
-    $PDO->query($sqlsupp);
-}
-?>
-
-
-
-
-
+<div class="banniere">
+    <img src="img/banniere2.jpg" alt="Bannière">
+</div>
 
 <script src="script.js"></script>
+
 <?php include_once("footer.php"); ?>
