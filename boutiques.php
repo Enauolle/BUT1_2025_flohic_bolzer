@@ -23,6 +23,8 @@ include_once("db.php");
                         echo($boutiques['ville']);
                         echo(" ");
                         echo($boutiques['pays']);
+                        echo("</br>");
+                        echo('Horaires : 8h00 - 19h00 du lundi au samedi');
                         echo("</div>");
                         echo("</br>");
                         echo("</br>");

@@ -17,6 +17,7 @@ session_start();
     <link href="css/login.css" rel="stylesheet" />
     <link href="css/g.css" rel="stylesheet" />
     <link href="css/admin.css" rel="stylesheet" />
+    <link href="scirpt.js" rel="script" />
     <link href="https://fonts.cdnfonts.com/css/goudy-old-style" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/08b10a2ab2.js" crossorigin="anonymous"></script>
 </head>

@@ -11,7 +11,7 @@ header {
 
 .icones {
     position: absolute;
-    top: 20px;
+    top: 10px;
     right: 20px;
     display: flex;
     gap: 15px;
@@ -19,18 +19,21 @@ header {
 }
 
 .cart, .user {
-    font-size: 25px;
-    color: #e4322e;
+    font-size: 30px;
+    color: #d4443c;
     cursor: pointer;
 }
 
 .deco {
-    font-family: 'Goudy Old Style', serif;
-    background-color: #e4322e;
-    color: white;
-    padding: 12px 12px;
-    border-radius: 4px;
-    font-size: 1,5rem;
-    text-decoration: none;
-    cursor: pointer;
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #d4443c;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
