@@ -4,7 +4,7 @@ include_once("menu.php");
 include_once("db.php");
 
 $id = $_GET['id'];
-$idc = $_GET['confiserie_id'];
+$idc = isset($_GET['confiserie_id']) ? (int)$_GET['confiserie_id'] : null;
 
 
 ?>

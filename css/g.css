@@ -25,6 +25,7 @@
     z-index: 1;
     padding: 1%;
     text-align: center;
+    overlay: scroll;
 }
 
 .bon {
