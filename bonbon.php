@@ -3,10 +3,11 @@ include_once("header.php");
 include_once("menu.php");
 include_once("db.php");
 
+?>  <a class="retour" href="#" onclick="history.back(); return false;">Retour à la page précedente</a> <?php 
+
  foreach ($recup3 as $stock) {
-                    foreach ($recup2 as $confiseries) {
-                        if ($stock['confiserie_id'] == $confiseries['id'] && $stock['boutique_id'] == $id) {
-                          echo('<a href="produits.php?id='.$id.'" class="retour">Retour à la page précedente</a>'); } } }
+    if ($stock['boutique_id'] == $id) { return $stock['boutique_id'];
+    }  }
 
   foreach ($recup2 as $confiseries) {
     if ($confiseries['id'] == $idc ) {
