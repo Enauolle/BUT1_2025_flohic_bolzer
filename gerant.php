@@ -3,6 +3,9 @@ include_once("header.php");
 include_once("menu.php");
 include_once("db.php");
 
+
+echo "ID boutique: " . $id;
+
 foreach($recup4 as $user){
     foreach($recup as $boutiques){
             if ($boutiques['id'] == $id && $user['id'] == $id) {
@@ -25,7 +28,6 @@ foreach($recup4 as $user){
         }
            
     ?>
-    </a>
   </div>
 </div>
 
@@ -33,7 +35,7 @@ foreach($recup4 as $user){
 <?php
     foreach ($recup3 as $stock) {
                     foreach ($recup2 as $confiseries) {
-                        if ($stock['confiserie_id'] == $confiseries['id'] && $stock['boutique_id'] == 1) {
+                        if ($stock['confiserie_id'] == $confiseries['id'] && $stock['boutique_id'] == $id) {
                             $imgc = $confiseries['illustration'];
                             $nomc = $confiseries['nom'];
                             $prix = $confiseries['prix'];
@@ -48,6 +50,15 @@ foreach($recup4 as $user){
                             echo('</br>');
                             echo('</br>');
                             echo('<a href="bonbon.php?confiserie_id='.$idc.'" >Voir les détails ></a>');
+                            ?>
+                            <form method="post" action="">
+                                <input type="number" name="nv_quantite" value="<?php echo $stock['quantite']; ?>" min="0">
+                                <input type="hidden" name="confiserie" value="<?php echo $stock['confiserie_id']; ?>">
+                                <input type="hidden" name="id_boutique" value="<?php echo $stock['boutique_id']; ?>">
+                                <button class="deco" type="submit" name="changer">Changer le stock</button>
+                                <button class="deco" type="submit" name="supp">Supprimer</button>
+                            </form>
+<?php
                             echo('</div>');
                   }
                 }
