@@ -18,7 +18,7 @@ form h1 {
   text-align: center;
   margin-bottom: 2rem;
   font-size: 2rem;
-  color: #e0524a;
+  color: #d4443c;
 }
 
 form h2 {
@@ -48,7 +48,7 @@ button[type="submit"] {
   margin-top: 2rem;
   width: 100%;
   padding: 0.8rem;
-  background-color: #e0524a;
+  background-color: #d4443c;
   border: none;
   border-radius: 10px;
   color: white;
@@ -59,12 +59,12 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #c4443e;
+  background-color: rgb(180, 69, 63);
 }
 
 .error {
   margin-top: 1rem;
-  color: red;
+  color: #d4443c;
   font-size: 0.9rem;
   text-align: center;
 }
