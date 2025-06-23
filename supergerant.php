@@ -159,5 +159,21 @@ require_once 'db.php';
     </div>
 </div>
 
+
+
+<?php
+if (isset($_POST['supp'])) {
+    $idb = $_POST['id_boutique'];
+
+    $sqlsupp = "DELETE FROM boutiques WHERE boutiques_id = $idb" ;
+    $PDO->query($sqlsupp);
+}
+?>
+
+
+
+
+
+
 <script src="script.js"></script>
 <?php include_once("footer.php"); ?>

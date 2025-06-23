@@ -5,8 +5,8 @@ include_once("db.php");
 
 $user = $_SESSION['user'] ?? ['role' => 'guest']; // rôle par défaut si non connecté
 
-$id = $_GET['id'];
-$idc = $_GET['confiserie_id'];
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+$idc = isset($_GET['confiserie_id']) ? (int)$_GET['confiserie_id'] : null;
 
 
 ?>
