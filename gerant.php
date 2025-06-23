@@ -4,7 +4,7 @@ include_once("menu.php");
 include_once("db.php");
 
 $idg = $_GET['idg'];
-$idc = $_GET['confiserie_id'];
+$idc = isset($_GET['confiserie_id']) ? (int)$_GET['confiserie_id'] : null;
 
 if (isset($_POST['changer'])) {
     $nv_quantite = $_POST['nouvelle_quantite'];
@@ -24,35 +24,39 @@ if (isset($_POST['supp'])) {
 }
 
 
-?>
-<form method="post" action="">
-    <?php
-        foreach($recup as $boutiques){
-                    if ($boutiques['id'] == $idg) {
-                        $nomb = $boutiques['nom'];
-                        echo('<h1>'.$nomb.'</h1>');
-                        }
+
+foreach($recup as $boutiques){
+                if ($boutiques['id'] == $idg) {
+                    $nomb = $boutiques['nom'];
+                    echo('<h1>'.$nomb.'</h1>');
                     }
-    ?>
+                }
 
-</form>
+?>
 
-<div class="dropdown">
+    <div class="dropdown">
     <button class="ajout" id="bouton"> 
         Ajouter un bonbon
     </button>
   <div class="hidden" id="dropdownMenu">
+    <form method="post" action="">
+        <input type="hidden" name="id_produit" value="<?php echo $stock['confiserie_id']; ?>">
+        <input type="hidden" name="id_boutique" value="<?php echo $stock['boutique_id']; ?>">
     <?php
         foreach ($recup2 as $confiseries) {
             $nomc = $confiseries['nom'];
             $idc = $confiseries['id'];
-            echo('<a class="bon" href="#" onclick="'.pls().'">'.$nomc.'</a>');
+            echo('<button type="submit" name="bonbon" class="bon">'.$nomc.'</button>');
         }
            
     ?>
-    </a>
+    </form>
   </div>
 </div>
+
+
+
+
 
 <main class="propro" id="produit">
 <?php
@@ -89,30 +93,6 @@ if (isset($_POST['supp'])) {
             }
 ?>
 
-<?php
-function pls(){
-    foreach ($recup2 as $confiseries) {
-        if ($confiseries['id'] == $idc) {
-            $imgc = $confiseries['illustration'];
-            $nomc = $confiseries['nom'];
-            $prix = $confiseries['prix'];
-            $idc = $confiseries['id'];
-
-            echo('<div class="carte">');
-            echo('<div class="confis"><img src="img/img_bdd/'.$imgc.'"/></div>');
-            echo('<h4>'.$nomc.'</h4>');
-            echo('<br>');
-            echo($confiseries['description']);
-            echo('<br>');
-            echo($prix.'€');
-            echo('<br><br>');
-            echo('<a href="bonbon.php?confiserie_id='.$idc.'">Voir les détails ></a>');
-            echo('</div>');
-        }
-    }
-
-}
-?>
 </div>
 </main>
 <?php
