@@ -67,29 +67,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="titre2"> 
     <h2>NOS BOUTIQUES</h2>
 </div>
+
+<?php
+require_once 'db.php';
+
+?>
 <div class="boutiques">
-    <div class="boutique">
-        <a href="boutiques.php?id=1">
-            <img src="img/img_bdd/B1" alt="La Mika-line">
-            <h3>Le Mika-line</h3>
-            <span class="voir-plus">Voir plus &gt;</span>
-        </a>
+    <?php foreach($recup as $boutique): ?>
+        <div class="boutique">
+            <a href="boutiques.php?id=<?php echo htmlspecialchars($boutique['id']); ?>">
+                <?php
+                    $baseName = $boutique['illustration'];
+                    $imageDir = 'img/img_bdd/';
+                    $image = $imageDir . 'default.jpg'; 
+
+                    if (!empty($baseName)) {
+                        if (file_exists($imageDir . $baseName)) {
+                            $image = $imageDir . $baseName;
+                        } else {
+                            $baseNoExt = pathinfo($baseName, PATHINFO_FILENAME); // enleve extension s'il y en a
+                            if (file_exists($imageDir . $baseNoExt . '.jpg')) {
+                                $image = $imageDir . $baseNoExt . '.jpg';
+                            } elseif (file_exists($imageDir . $baseNoExt . '.png')) {
+                                $image = $imageDir . $baseNoExt . '.png';
+                            }
+                        }
+                    }
+                ?>
+                <img src="<?php echo htmlspecialchars($image); ?>" 
+                     alt="<?php echo htmlspecialchars($boutique['nom']); ?>">
+                <h3><?php echo htmlspecialchars($boutique['nom']); ?></h3>
+                <span class="voir-plus">Voir plus &gt;</span>
+            </a>
         </div>
-    <div class="boutique">
-        <a href="boutiques.php?id=2">
-            <img src="img/img_bdd/B2" alt="Ok Bonbons">
-            <h3>Ok Bonbons</h3>
-            <span class="voir-plus">Voir plus &gt;</span>
-        </a>
-    </div>
-    <div class="boutique">
-        <a href="boutiques.php?id=3">
-            <img src="img/img_bdd/B3" alt="Le Saccharo">
-            <h3>Le Saccharo</h3>
-            <span class="voir-plus">Voir plus &gt;</span>
-        </a>
-    </div>
+    <?php endforeach; ?>
 </div>
+
+
 
 <div class="banniere">
     <img src="img/banniere2.jpg" alt="Bannière">

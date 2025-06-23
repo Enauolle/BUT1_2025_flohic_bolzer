@@ -56,44 +56,6 @@ require_once 'db.php';
 
 
 
-
-
-
-
-
-
-<div class="boutiques">
-    <div class="boutique">
-        <a href="boutiques.php?id=1">
-            <img src="img/img_bdd/B1" alt="La Mika-line">
-            <h3>Le Mika-line</h3>
-            <span class="voir-plus">Voir plus &gt;</span>
-        </a>
-        </div>
-    <div class="boutique">
-        <a href="boutiques.php?id=2">
-            <img src="img/img_bdd/B2" alt="Ok Bonbons">
-            <h3>Ok Bonbons</h3>
-            <span class="voir-plus">Voir plus &gt;</span>
-        </a>
-    </div>
-    <div class="boutique">
-        <a href="boutiques.php?id=3">
-            <img src="img/img_bdd/B3" alt="Le Saccharo">
-            <h3>Le Saccharo</h3>
-            <span class="voir-plus">Voir plus &gt;</span>
-        </a>
-    </div>
-</div>
-
-<div class="banniere">
-    <img src="img/banniere2.jpg" alt="Bannière">
-</div>
-
-
-
-
-
 <div class="histoire">
     <div>
         <img src="img/àpropos.jpg" alt="">
