@@ -3,7 +3,7 @@ include_once("header.php");
 include_once("menu.php");
 include_once("db.php");
 
-$idg = $_GET['idg'];
+$idg = isset($_GET['idg']) ? (int)$_GET['idg'] : null;
 $idc = isset($_GET['confiserie_id']) ? (int)$_GET['confiserie_id'] : null;
 
 if (isset($_POST['changer'])) {
@@ -23,7 +23,13 @@ if (isset($_POST['supp'])) {
     $PDO->query($sqlsupp);
 }
 
+if (isset($_POST['bonbon'])) {
+    $idc = $_POST['id_produit'] ;
+    $id_boutique = $_POST['id_boutique'];
 
+    $sqladd = "INSERT INTO stocks (confiserie_id, boutique_id) VALUES ($idc, $id_boutique)";
+    $PDO->query($sqladd);
+}
 
 foreach($recup as $boutiques){
                 if ($boutiques['id'] == $idg) {
