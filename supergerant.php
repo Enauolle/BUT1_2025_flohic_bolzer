@@ -7,11 +7,9 @@ if (!isset($PDO) || $PDO === null) {
     die("Erreur : Connexion à la base de données non établie.");
 }
 
-// Handle boutique deletion
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supp']) && isset($_POST['id_boutique'])) {
     $idb = (int)$_POST['id_boutique'];
 
-    // Check if boutique has zero stock before deleting (extra safety)
     $stmtCheck = $PDO->prepare("SELECT COUNT(*) FROM stocks WHERE boutique_id = ?");
     $stmtCheck->execute([$idb]);
     $stockCount = (int)$stmtCheck->fetchColumn();
@@ -26,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supp']) && isset($_PO
     }
 }
 
-// Handle adding new boutique
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_boutique'])) {
     $nom = $_POST['nom'] ?? '';
     $utilisateur_id = $_POST['utilisateur_id'] ?? '';
@@ -39,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_boutique'])) {
 
     $image = $_FILES['illustration'] ?? null;
 
-    // Validate and handle image upload
     $fileName = '';
     if ($image && $image['error'] === UPLOAD_ERR_OK) {
         $ext = strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
@@ -85,24 +81,20 @@ $recup = $stmtBoutiques->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
-<div class="titre2"> 
-    <h2>NOS BOUTIQUES</h2>
-</div>
-
 <div class="boutiques">
-    <?php foreach ($recup as $boutique): ?>
+    <?php foreach($recup as $boutique): ?>
         <div class="boutique">
-            <a href="boutiques.php?id=<?= htmlspecialchars($boutique['id']) ?>">
+            <a href="boutiques.php?id=<?php echo htmlspecialchars($boutique['id']); ?>">
                 <?php
                     $baseName = $boutique['illustration'];
                     $imageDir = 'img/img_bdd/';
-                    $image = $imageDir . 'default.jpg';
+                    $image = $imageDir . 'default.jpg'; 
 
                     if (!empty($baseName)) {
                         if (file_exists($imageDir . $baseName)) {
                             $image = $imageDir . $baseName;
                         } else {
-                            $baseNoExt = pathinfo($baseName, PATHINFO_FILENAME);
+                            $baseNoExt = pathinfo($baseName, PATHINFO_FILENAME); // enleve extension s'il y en a
                             if (file_exists($imageDir . $baseNoExt . '.jpg')) {
                                 $image = $imageDir . $baseNoExt . '.jpg';
                             } elseif (file_exists($imageDir . $baseNoExt . '.png')) {
@@ -111,33 +103,28 @@ $recup = $stmtBoutiques->fetchAll(PDO::FETCH_ASSOC);
                         }
                     }
                 ?>
-
-
-
-
-
-
-
-                <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($boutique['nom']) ?>">
-                <h3><?= htmlspecialchars($boutique['nom']) ?></h3>
+                <img src="<?php echo htmlspecialchars($image); ?>" 
+                     alt="<?php echo htmlspecialchars($boutique['nom']); ?>">
+                <h3><?php echo htmlspecialchars($boutique['nom']); ?></h3>
                 <span class="voir-plus">Voir plus &gt;</span>
+            
             </a>
-
-            <?php
+            
+        </div>
+        <?php
                 $stmtStock = $PDO->prepare("SELECT COUNT(*) FROM stocks WHERE boutique_id = ?");
                 $stmtStock->execute([$boutique['id']]);
                 $stockCount = (int)$stmtStock->fetchColumn();
-
-                if ($stockCount === 0):
-            ?>
-                <form method="POST" onsubmit="return confirm('Confirmer la suppression ?');" style="margin-top:10px;">
+            
+            if ($stockCount === 0): ?>
+                <form method="POST" onsubmit="return confirm('Confirmer la suppression ?');" class="form-supp">
                     <input type="hidden" name="id_boutique" value="<?= htmlspecialchars($boutique['id']) ?>">
                     <button type="submit" name="supp" class="boutton-supprimer">Supprimer</button>
                 </form>
             <?php endif; ?>
-        </div>
     <?php endforeach; ?>
 </div>
+
 
 <div class="trait" ></div>
 

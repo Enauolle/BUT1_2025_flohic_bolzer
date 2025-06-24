@@ -9,23 +9,7 @@ h3 {
     text-align: center;
 }
 
-.ajouter {
-    margin-top: 2rem;
-    width: 100%;
-    padding: 0.8rem;
-    background-color: #e0524a;
-    border: none;
-    color: white;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
-}
 
-.ajouter:hover {
-    background-color: #c3423a;
-}
 .ajouter {
     margin: 2rem auto;
     display: block;
@@ -46,7 +30,42 @@ h3 {
     transform: translateY(-2px);
 }
 
-/* Popup styles */
+
+
+
+
+
+.boutton-supprimer {
+    margin: 10px auto 0 auto;
+    display: block;
+    padding: 0.6rem 1.2rem;
+    background-color: #e0524a;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.boutton-supprimer:hover {
+    background-color: #c0413a;
+    transform: translateY(-1px);
+}
+
+.form-supp {
+    text-align: center;
+    margin-top: -10px;
+}
+
+
+
+
+
+
+
+
 .popup-hidden {
     display: none;
 }
