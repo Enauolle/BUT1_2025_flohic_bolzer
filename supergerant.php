@@ -3,20 +3,20 @@ include_once("header.php");
 include_once("menu.php");
 include_once("db.php");
 
-if (!isset($PDO) || $PDO === null) {
-    die("Erreur : Connexion à la base de données non établie.");
-}
 
+//  Si stock = 0 (pas besoin d'ajouter la deuxieme condition, c'est une page dédiée à l'admin)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supp']) && isset($_POST['id_boutique'])) {
     $idb = (int)$_POST['id_boutique'];
 
-    $stmtCheck = $PDO->prepare("SELECT COUNT(*) FROM stocks WHERE boutique_id = ?");
-    $stmtCheck->execute([$idb]);
-    $stockCount = (int)$stmtCheck->fetchColumn();
+    $countstock = $PDO->prepare("SELECT COUNT(*) FROM stocks WHERE boutique_id = ?");
+    $countstock->execute([$idb]);
+    $stockCount = (int)$countstock->fetchColumn();
 
+
+    // Supprimer une boutique
     if ($stockCount === 0) {
-        $stmtDel = $PDO->prepare("DELETE FROM boutiques WHERE id = ?");
-        $stmtDel->execute([$idb]);
+        $supp = $PDO->prepare("DELETE FROM boutiques WHERE id = ?");
+        $supp->execute([$idb]);
         header("Location: supergerant.php?deleted=ok");
         exit;
     } else {
@@ -24,6 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supp']) && isset($_PO
     }
 }
 
+
+
+// Ajout dans la base de données depuis un formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_boutique'])) {
     $nom = $_POST['nom'] ?? '';
     $utilisateur_id = $_POST['utilisateur_id'] ?? '';
@@ -36,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_boutique'])) {
 
     $image = $_FILES['illustration'] ?? null;
 
+    # Pour que ca accepte autant les jpeg que les png
     $fileName = '';
     if ($image && $image['error'] === UPLOAD_ERR_OK) {
         $ext = strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
@@ -56,13 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_boutique'])) {
     }
 
     if ($fileName) {
-        // Insert into DB
-        $stmt = $PDO->prepare("
+        # Insertion dans la bdd
+        $insert = $PDO->prepare("
             INSERT INTO boutiques 
             (nom, utilisateur_id, numero_rue, nom_adresse, code_postal, ville, pays, illustration, histoire)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
-        $success = $stmt->execute([
+        $success = $insert->execute([
             $nom, $utilisateur_id, $numero_rue, $nom_adresse, $code_postal,
             $ville, $pays, $fileName, $histoire
         ]);
@@ -76,13 +80,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_boutique'])) {
     }
 }
 
-$stmtBoutiques = $PDO->query("SELECT * FROM boutiques ORDER BY nom");
-$recup = $stmtBoutiques->fetchAll(PDO::FETCH_ASSOC);
+
+//  Affichage des boutiques avec la nouvelle
+$AffichBoutiqque = $PDO->query("SELECT * FROM boutiques ORDER BY nom");
+$recuperation = $AffichBoutiqque->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
+ <!-- Image dans le dossier img/img_bdd -->
 <div class="boutiques">
-    <?php foreach($recup as $boutique): ?>
+    <?php foreach($recuperation as $boutique): ?>
         <div class="boutique">
             <a href="boutiques.php?id=<?php echo htmlspecialchars($boutique['id']); ?>">
                 <?php
@@ -112,9 +119,9 @@ $recup = $stmtBoutiques->fetchAll(PDO::FETCH_ASSOC);
             
         </div>
         <?php
-                $stmtStock = $PDO->prepare("SELECT COUNT(*) FROM stocks WHERE boutique_id = ?");
-                $stmtStock->execute([$boutique['id']]);
-                $stockCount = (int)$stmtStock->fetchColumn();
+                $countstock = $PDO->prepare("SELECT COUNT(*) FROM stocks WHERE boutique_id = ?");
+                $countstock->execute([$boutique['id']]);
+                $stockCount = (int)$countstock->fetchColumn();
             
             if ($stockCount === 0): ?>
                 <form method="POST" onsubmit="return confirm('Confirmer la suppression ?');" class="form-supp">
@@ -128,7 +135,7 @@ $recup = $stmtBoutiques->fetchAll(PDO::FETCH_ASSOC);
 
 <div class="trait" ></div>
 
-
+<!--  Formulaire d'ajout -->
 <button class="ajouter" id="openFormBtn">Ajouter une boutique</button>
 
 <div id="formPopup" class="popup-hidden">
@@ -180,6 +187,11 @@ $recup = $stmtBoutiques->fetchAll(PDO::FETCH_ASSOC);
 <div class="banniere">
     <img src="img/banniere2.jpg" alt="Bannière">
 </div>
+
+<div>
+    <a class="lalaland" href="ajout_bonbon.php"> Ajouter des bonbons</a>
+</div>
+
 
 <script src="script.js"></script>
 
