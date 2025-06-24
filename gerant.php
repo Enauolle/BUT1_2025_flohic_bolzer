@@ -3,11 +3,11 @@ include_once("header.php");
 include_once("menu.php");
 include_once("db.php");
 
-$idg = isset($_GET['idg']) ? (int)$_GET['idg'] : null;
-$idc = isset($_GET['confiserie_id']) ? (int)$_GET['confiserie_id'] : null;
+$idg = isset($_GET['idg']) ? (int)$_GET['idg'] : null; //prendre id du gérant
+$idc = isset($_GET['confiserie_id']) ? (int)$_GET['confiserie_id'] : null; // id de la confiserie
 
-if (isset($_POST['changer'])) {
-    $nv_quantite = $_POST['nouvelle_quantite'];
+if (isset($_POST['changer'])) { //si je clique sur le boutton changer
+    $nv_quantite = $_POST['nouvelle_quantite']; //prendre la quantité déja existante
     $idc = $_POST['id_produit'];
     $id_boutique = $_POST['id_boutique'];
 
@@ -15,7 +15,7 @@ if (isset($_POST['changer'])) {
     $PDO->query($sqlajout);
 }
 
-if (isset($_POST['supp'])) {
+if (isset($_POST['supp'])) { //supp une confiserie
     $idc = $_POST['id_produit'];
     $id_boutique = $_POST['id_boutique'];
 
@@ -23,7 +23,7 @@ if (isset($_POST['supp'])) {
     $PDO->query($sqlsupp);
 }
 
-if (isset($_POST['bonbon'])) {
+if (isset($_POST['bonbon'])) { //ajoute une confiserie
     $idp = intval($_POST['id_produit']);
     $id_boutique = intval($_POST['id_boutique']);
 
@@ -45,7 +45,7 @@ foreach($recup as $boutiques){
     <button class="ajout" id="bouton">Ajouter un bonbon</button>
     <div class="hidden" id="dropdownMenu">
         <?php foreach ($recup2 as $confiseries){ ?>
-            <form method="post" action="">
+           <form method="post" action="">  <!-- méthode post = permet d'ajouter, supp etc -->
                 <input type="hidden" name="id_produit" value="<?php echo($confiseries['id']) ?>">
                 <input type="hidden" name="id_boutique" value="<?php echo($idg) ?>"> 
                 <button type="submit" name="bonbon" class="bon"><?php echo($confiseries['nom']) ?></button>

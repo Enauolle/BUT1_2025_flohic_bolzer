@@ -28,6 +28,8 @@ function dbquery($sql, $params = []){
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+//récupuration dans la bdd
+
 $sqlboutique = "SELECT * FROM boutiques" ;
 $connection = $PDO->query($sqlboutique);
 $recup = $connection->fetchAll();
