@@ -10,6 +10,7 @@ $idc = isset($_GET['confiserie_id']) ? (int)$_GET['confiserie_id'] : null;
 
 
 ?>
+<a class="retour" href="#" onclick="history.back(); return false;">Retour à la page précedente</a>
         <div class= "infob">
             <?php
                 foreach($recup as $boutiques){

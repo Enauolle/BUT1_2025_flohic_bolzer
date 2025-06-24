@@ -18,7 +18,7 @@ $idc = isset($_GET['confiserie_id']) ? (int)$_GET['confiserie_id'] : null;
             }
         ?>
     </div>
-
+<a class="retour" href="#" onclick="history.back(); return false;">Retour à la page précedente</a>
    <main class="propro">
         <?php
             foreach ($recup3 as $stock) {
