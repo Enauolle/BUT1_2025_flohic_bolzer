@@ -1,128 +1,136 @@
 <?php
-include_once("header.php");
+include_once("header.php"); // session_start supposé dans header.php
 include_once("menu.php");
 include_once("db.php");
 
-$idg = isset($_GET['idg']) ? (int)$_GET['idg'] : null; //prendre id du gérant
-$idc = isset($_GET['confiserie_id']) ? (int)$_GET['confiserie_id'] : null; // id de la confiserie On vérifie si la variable confiserie_id existe dans l'URL (avec isset).
-//(?...) Si oui, on récupère sa valeur et on la convertit en entier avec int).
+// Récupération de l'ID boutique depuis l'URL
+$idb = isset($_GET['idb']) ? (int)$_GET['idb'] : null;
 
-if (isset($_POST['changer'])) { //si je clique sur le boutton changer
-    $nv_quantite = $_POST['nouvelle_quantite']; //prendre la quantité déja existante
-    $idc = $_POST['id_produit'];
-    $id_boutique = $_POST['id_boutique'];
-
-    $sqlajout = "UPDATE stocks SET quantite = $nv_quantite WHERE confiserie_id = $idc AND boutique_id = $id_boutique";
-    $PDO->query($sqlajout);
-
-    echo '<script>window.location.href=" gerant.php?idg='.$idg.'";</script>';
-    exit();
+if (!$idb) {
+    echo "<p style='color:red;'>Boutique non spécifiée.</p>";
+    exit;
 }
 
-if (isset($_POST['supp'])) { //supp une confiserie
-    $idc = $_POST['id_produit'];
-    $id_boutique = $_POST['id_boutique'];
-
-    $sqlsupp = "DELETE FROM stocks WHERE confiserie_id = $idc AND boutique_id = $id_boutique";
-    $PDO->query($sqlsupp);
-
-    echo '<script>window.location.href=" gerant.php?idg='.$idg.'";</script>';
-    exit();
+// Récupérer infos boutique
+$recup = dbquery("SELECT * FROM boutiques WHERE id = ?", [$idb]);
+if (empty($recup)) {
+    echo "<p style='color:red;'>Boutique introuvable.</p>";
+    exit;
 }
+$boutique = $recup[0];
 
-if (isset($_POST['bonbon'])) { //ajoute une confiserie
-    $idp = intval($_POST['id_produit']); //intval convertit la valeur récupérée en un entier
-    $id_boutique = intval($_POST['id_boutique']);
+// Récupérer toutes les confiseries (pour menu ajout bonbon)
+$recup2 = dbquery("SELECT * FROM confiseries ORDER BY nom");
 
-    $sqladd = $PDO->prepare("INSERT INTO stocks (confiserie_id, boutique_id, quantite) VALUES (?, ?, 1)");
-    $sqladd->execute([$idp, $id_boutique]);
+// Récupérer stocks de cette boutique
+$recup3 = dbquery("SELECT * FROM stocks WHERE boutique_id = ?", [$idb]);
 
-    echo '<script>window.location.href=" gerant.php?idg='.$idg.'";</script>';
-    exit();
+// Connexion PDO depuis db.php (ex: $PDO)
+// Gestion des POST (modification stock, suppression, ajout)
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (isset($_POST['changer'])) {
+        $nv_quantite = max(0, (int)$_POST['nouvelle_quantite']);
+        $idc = (int)$_POST['id_produit'];
+        $id_boutique = (int)$_POST['id_boutique'];
+
+        $sqlajout = "UPDATE stocks SET quantite = ? WHERE confiserie_id = ? AND boutique_id = ?";
+        $stmt = $PDO->prepare($sqlajout);
+        $stmt->execute([$nv_quantite, $idc, $id_boutique]);
+
+        header("Location: gerant.php?idb=$id_boutique");
+        exit();
+    }
+
+    if (isset($_POST['supp'])) {
+        $idc = (int)$_POST['id_produit'];
+        $id_boutique = (int)$_POST['id_boutique'];
+
+        $sqlsupp = "DELETE FROM stocks WHERE confiserie_id = ? AND boutique_id = ?";
+        $stmt = $PDO->prepare($sqlsupp);
+        $stmt->execute([$idc, $id_boutique]);
+
+        header("Location: gerant.php?idb=$id_boutique");
+        exit();
+    }
+
+    if (isset($_POST['bonbon'])) {
+        $idp = (int)$_POST['id_produit'];
+        $id_boutique = (int)$_POST['id_boutique'];
+
+        // Vérifier si déjà présent pour éviter doublon (optionnel)
+        $check = dbquery("SELECT * FROM stocks WHERE confiserie_id = ? AND boutique_id = ?", [$idp, $id_boutique]);
+        if (empty($check)) {
+            $sqladd = $PDO->prepare("INSERT INTO stocks (confiserie_id, boutique_id, quantite) VALUES (?, ?, 1)");
+            $sqladd->execute([$idp, $id_boutique]);
+        }
+
+        header("Location: gerant.php?idb=$id_boutique");
+        exit();
+    }
 }
-
-
-foreach($recup as $boutiques){
-                if ($boutiques['id'] == $idg) {
-                    $nomb = $boutiques['nom'];
-                    echo('<h1>'.$nomb.'</h1>');
-                    }
-                }
-
 ?>
 
+<h1><?php echo htmlspecialchars($boutique['nom']); ?></h1>
+
+<!-- Menu d'ajout de bonbon -->
 <div class="dropdown">
     <button class="ajout" id="bouton">Ajouter un bonbon</button>
     <div class="hidden" id="dropdownMenu">
-        <?php foreach ($recup2 as $confiseries){ ?>
-           <form method="post" action="">  <!-- méthode post = permet d'ajouter, supp etc -->
-                <input type="hidden" name="id_produit" value="<?php echo($confiseries['id']) ?>">
-                <input type="hidden" name="id_boutique" value="<?php echo($idg) ?>"> 
-                <button type="submit" name="bonbon" class="bon"><?php echo($confiseries['nom']) ?></button>
+        <?php foreach ($recup2 as $confiserie): ?>
+            <form method="post" style="margin:0;">
+                <input type="hidden" name="id_produit" value="<?= (int)$confiserie['id'] ?>">
+                <input type="hidden" name="id_boutique" value="<?= $idb ?>">
+                <button type="submit" name="bonbon" class="bon"><?= htmlspecialchars($confiserie['nom']) ?></button>
             </form>
-        <?php } ?>
+        <?php endforeach; ?>
     </div>
 </div>
 
-
-
-
-
+<!-- Affichage des bonbons en stock -->
 <main class="propro" id="produit">
-<?php
-    foreach ($recup3 as $stock) {
-                    foreach ($recup2 as $confiseries) {
-                        if ($stock['confiserie_id'] == $confiseries['id'] && $stock['boutique_id'] == $idg) {
-                            $imgc = $confiseries['illustration'];
-                            $nomc = $confiseries['nom'];
-                            $prix = $confiseries['prix'];
-                            $idc = $confiseries['id'];
-                            echo('<div class="carte">');
-                            echo('<div class="confis"> <img src="img/img_bdd/'.$imgc.'"/> </div>');
-                            echo('<h4>'.$nomc.'</h4>');
-                            echo('</br>');
-                            echo($confiseries['description']);
-                            echo('</br>');
-                            echo(''.$prix.'€');
-                            echo('</br>');
-                            echo('</br>');
-                            echo('<a href="bonbon.php?confiserie_id='.$idc.'" >Voir les détails ></a>');
-                            ?>
-                            <form method="post" action="">
-                                <input type="number" name="nouvelle_quantite" value="<?php echo $stock['quantite']; ?>" min="0">
-                                <input type="hidden" name="id_produit" value="<?php echo $stock['confiserie_id']; ?>">
-                                <input type="hidden" name="id_boutique" value="<?php echo $stock['boutique_id']; ?>">
-                                <button class="stock" type="submit" name="changer">Changer le stock</button>
-                                <button class="supp" type="submit" name="supp">Supprimer</button>
-                            </form>
+    <?php
+    foreach ($recup3 as $stock):
+        foreach ($recup2 as $confiserie):
+            if ($confiserie['id'] == $stock['confiserie_id']):
+                $imgc = htmlspecialchars($confiserie['illustration']);
+                $nomc = htmlspecialchars($confiserie['nom']);
+                $prix = htmlspecialchars($confiserie['prix']);
+                $desc = htmlspecialchars($confiserie['description']);
+                $idc = (int)$confiserie['id'];
+    ?>
+    <div class="carte">
+        <div class="confis">
+            <img src="img/img_bdd/<?= $imgc ?>" alt="<?= $nomc ?>">
+        </div>
+        <h4><?= $nomc ?></h4>
+        <p><?= $desc ?></p>
+        <p><?= $prix ?> €</p>
+        <a href="bonbon.php?confiserie_id=<?= $idc ?>">Voir les détails ></a>
 
-<?php
-                            echo('</div>');
-                  }
-                }
-            }
-?>
-
-</div>
+        <form method="post">
+            <input type="number" name="nouvelle_quantite" value="<?= (int)$stock['quantite'] ?>" min="0">
+            <input type="hidden" name="id_produit" value="<?= $idc ?>">
+            <input type="hidden" name="id_boutique" value="<?= $idb ?>">
+            <button class="stock" type="submit" name="changer">Changer le stock</button>
+            <button class="supp" type="submit" name="supp">Supprimer</button>
+        </form>
+    </div>
+    <?php
+            endif;
+        endforeach;
+    endforeach;
+    ?>
 </main>
-<?php
-include_once("footer.php");
-?>
+
+<?php include_once("footer.php"); ?>
 
 <script>
-    const menu = document.getElementById("dropdownMenu");
-    const button = document.getElementById("bouton");
-    const bonbons = document.getElementById("produit");
-    const nomp = document.getElementById("nom");
-    const catalogue = document.getElementById("catalogueBonbons");
+const menu = document.getElementById("dropdownMenu");
+const button = document.getElementById("bouton");
 
-
-
-button.addEventListener("click", function(event) {
+button.addEventListener("click", () => {
     menu.classList.toggle("hidden");
     menu.classList.toggle("menu");
 });
-
-
-
 </script>

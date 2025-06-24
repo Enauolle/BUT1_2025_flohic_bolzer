@@ -3,17 +3,11 @@ include_once("header.php");
 include_once("menu.php");
 include_once("db.php");
 
-
-//  Si stock = 0 (pas besoin d'ajouter la deuxieme condition, c'est une page dédiée à l'admin)
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supp']) && isset($_POST['id_boutique'])) {
+// Suppression boutique si aucun stock
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supp'], $_POST['id_boutique'])) {
     $idb = (int)$_POST['id_boutique'];
+    $stockCount = (int) dbquery("SELECT COUNT(*) AS count FROM stocks WHERE boutique_id = ?", [$idb])[0]['count'];
 
-    $countstock = $PDO->prepare("SELECT COUNT(*) FROM stocks WHERE boutique_id = ?");
-    $countstock->execute([$idb]);
-    $stockCount = (int)$countstock->fetchColumn();
-
-
-    // Supprimer une boutique
     if ($stockCount === 0) {
         $supp = $PDO->prepare("DELETE FROM boutiques WHERE id = ?");
         $supp->execute([$idb]);
@@ -24,9 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supp']) && isset($_PO
     }
 }
 
-
-
-// Ajout dans la base de données depuis un formulaire
+// Ajout d'une boutique
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_boutique'])) {
     $nom = $_POST['nom'] ?? '';
     $utilisateur_id = $_POST['utilisateur_id'] ?? '';
@@ -36,10 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_boutique'])) {
     $ville = $_POST['ville'] ?? '';
     $pays = $_POST['pays'] ?? '';
     $histoire = $_POST['histoire'] ?? '';
-
     $image = $_FILES['illustration'] ?? null;
 
-    # Pour que ca accepte autant les jpeg que les png
     $fileName = '';
     if ($image && $image['error'] === UPLOAD_ERR_OK) {
         $ext = strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
@@ -51,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_boutique'])) {
             $photoPath = $targetDir . $fileName;
             if (!move_uploaded_file($image['tmp_name'], $photoPath)) {
                 echo "<p style='color:red;'>Erreur lors du déplacement du fichier uploadé.</p>";
+                $fileName = ''; // sécurité
             }
         } else {
             echo "<p style='color:red;'>Type de fichier non autorisé.</p>";
@@ -60,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_boutique'])) {
     }
 
     if ($fileName) {
-        # Insertion dans la bdd
         $insert = $PDO->prepare("
             INSERT INTO boutiques 
             (nom, utilisateur_id, numero_rue, nom_adresse, code_postal, ville, pays, illustration, histoire)
@@ -80,28 +70,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_boutique'])) {
     }
 }
 
-
-//  Affichage des boutiques avec la nouvelle
-$AffichBoutiqque = $PDO->query("SELECT * FROM boutiques ORDER BY nom");
-$recuperation = $AffichBoutiqque->fetchAll(PDO::FETCH_ASSOC);
-
+// Récupération des boutiques
+$recuperation = dbquery("SELECT * FROM boutiques ORDER BY nom");
 ?>
 
- <!-- Image dans le dossier img/img_bdd -->
+<!-- Affichage des boutiques -->
 <div class="boutiques">
     <?php foreach($recuperation as $boutique): ?>
         <div class="boutique">
-            <a href="boutiques.php?id=<?php echo htmlspecialchars($boutique['id']); ?>">
+            <a href="boutiques.php?id=<?= htmlspecialchars($boutique['id']) ?>">
                 <?php
                     $baseName = $boutique['illustration'];
                     $imageDir = 'img/img_bdd/';
-                    $image = $imageDir . 'default.jpg'; 
+                    $image = $imageDir . 'default.jpg';
 
                     if (!empty($baseName)) {
                         if (file_exists($imageDir . $baseName)) {
                             $image = $imageDir . $baseName;
                         } else {
-                            $baseNoExt = pathinfo($baseName, PATHINFO_FILENAME); // enleve extension s'il y en a
+                            $baseNoExt = pathinfo($baseName, PATHINFO_FILENAME);
                             if (file_exists($imageDir . $baseNoExt . '.jpg')) {
                                 $image = $imageDir . $baseNoExt . '.jpg';
                             } elseif (file_exists($imageDir . $baseNoExt . '.png')) {
@@ -110,32 +97,26 @@ $recuperation = $AffichBoutiqque->fetchAll(PDO::FETCH_ASSOC);
                         }
                     }
                 ?>
-                <img src="<?php echo htmlspecialchars($image); ?>" 
-                     alt="<?php echo htmlspecialchars($boutique['nom']); ?>">
-                <h3><?php echo htmlspecialchars($boutique['nom']); ?></h3>
+                <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($boutique['nom']) ?>">
+                <h3><?= htmlspecialchars($boutique['nom']) ?></h3>
                 <span class="voir-plus">Voir plus &gt;</span>
-            
             </a>
-            
+
         </div>
         <?php
-                $countstock = $PDO->prepare("SELECT COUNT(*) FROM stocks WHERE boutique_id = ?");
-                $countstock->execute([$boutique['id']]);
-                $stockCount = (int)$countstock->fetchColumn();
-            
-            if ($stockCount === 0): ?>
-                <form method="POST" onsubmit="return confirm('Confirmer la suppression ?');" class="form-supp">
-                    <input type="hidden" name="id_boutique" value="<?= htmlspecialchars($boutique['id']) ?>">
-                    <button type="submit" name="supp" class="boutton-supprimer">Supprimer</button>
-                </form>
+                $stockCount = (int) dbquery("SELECT COUNT(*) AS count FROM stocks WHERE boutique_id = ?", [$boutique['id']])[0]['count'];
+                if ($stockCount === 0): ?>
+                    <form method="POST" onsubmit="return confirm('Confirmer la suppression ?');" class="form-supp">
+                        <input type="hidden" name="id_boutique" value="<?= htmlspecialchars($boutique['id']) ?>">
+                        <button type="submit" name="supp" class="boutton-supprimer">Supprimer</button>
+                    </form>
             <?php endif; ?>
     <?php endforeach; ?>
 </div>
 
+<div class="trait"></div>
 
-<div class="trait" ></div>
-
-<!--  Formulaire d'ajout -->
+<!-- Formulaire d'ajout -->
 <button class="ajouter" id="openFormBtn">Ajouter une boutique</button>
 
 <div id="formPopup" class="popup-hidden">
@@ -192,9 +173,6 @@ $recuperation = $AffichBoutiqque->fetchAll(PDO::FETCH_ASSOC);
 <div class="banniere">
     <img src="img/banniere2.jpg" alt="Bannière">
 </div>
-
-
-
 
 <script src="script.js"></script>
 

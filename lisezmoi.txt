@@ -1,0 +1,10 @@
+Bonjour Mr. Picogna,
+
+Tout d'abord, pour nos modifications de la base de données :
+Nous avons mofifié la base de données pour y ajouter des photos de boutiques et de bonbons. 
+Nous vous avons partager dans le dossier les commandes sql à entrées dans phpMyAdmin.
+Il vous reste normalement uniquement à les copier-coller pour que cela marche.
+
+Maintenant pour les petites manip lors du test de notre site :
+Si vous ajoutez ou retirez un bonbon, vous devrez recharger la page pour que cela prenne effet.
+Le menu dans le header ramenera toujours vers les fiches boutique côté client même si un admin ou gérant est connécté

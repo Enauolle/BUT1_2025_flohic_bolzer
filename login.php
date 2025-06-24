@@ -20,7 +20,7 @@ if (isset($_POST["login"], $_POST["password"])) {
         $idd = $_SESSION["id"];
 
         if ($user['role'] === 'gerant') {
-            header("Location: gerant.php?idg=".$idd);
+            header("Location: gerantchoixboutique.php?idg=".$idd);
             exit();
         } elseif ($user['role'] === 'admin') {
             header("Location: supergerant.php");
