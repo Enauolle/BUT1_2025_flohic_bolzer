@@ -4,7 +4,8 @@ include_once("menu.php");
 include_once("db.php");
 
 $idg = isset($_GET['idg']) ? (int)$_GET['idg'] : null; //prendre id du gérant
-$idc = isset($_GET['confiserie_id']) ? (int)$_GET['confiserie_id'] : null; // id de la confiserie
+$idc = isset($_GET['confiserie_id']) ? (int)$_GET['confiserie_id'] : null; // id de la confiserie On vérifie si la variable confiserie_id existe dans l'URL (avec isset).
+//(?...) Si oui, on récupère sa valeur et on la convertit en entier avec int).
 
 if (isset($_POST['changer'])) { //si je clique sur le boutton changer
     $nv_quantite = $_POST['nouvelle_quantite']; //prendre la quantité déja existante
@@ -24,7 +25,7 @@ if (isset($_POST['supp'])) { //supp une confiserie
 }
 
 if (isset($_POST['bonbon'])) { //ajoute une confiserie
-    $idp = intval($_POST['id_produit']);
+    $idp = intval($_POST['id_produit']); //intval convertit la valeur récupérée en un entier
     $id_boutique = intval($_POST['id_boutique']);
 
     $sqladd = $PDO->prepare("INSERT INTO stocks (confiserie_id, boutique_id, quantite) VALUES (?, ?, 1)");

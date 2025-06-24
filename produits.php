@@ -8,6 +8,7 @@ $idc = isset($_GET['confiserie_id']) ? (int)$_GET['confiserie_id'] : null;
 
 
 ?>
+<a class="retour" href="#" onclick="history.back(); return false;">Retour à la page précedente</a>
     <div class="titrepro">
         <?php
             foreach($recup as $boutiques){
@@ -18,7 +19,7 @@ $idc = isset($_GET['confiserie_id']) ? (int)$_GET['confiserie_id'] : null;
             }
         ?>
     </div>
-<a class="retour" href="#" onclick="history.back(); return false;">Retour à la page précedente</a>
+
    <main class="propro">
         <?php
             foreach ($recup3 as $stock) {
@@ -37,7 +38,6 @@ $idc = isset($_GET['confiserie_id']) ? (int)$_GET['confiserie_id'] : null;
                             echo(''.$prix.'€');
                             echo('</br>');
                             echo('</br>');
-                            //echo '<a href="bonbon.php?id=' . $id . '&idc=' . $idc . '">Voir le bonbon</a>';
                             echo('<a href="bonbon.php?confiserie_id='.$idc.'" >Voir les détails ></a>');
                             echo('</div>');
                   }
