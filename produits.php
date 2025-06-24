@@ -3,7 +3,7 @@ include_once("header.php");
 include_once("menu.php");
 include_once("db.php");
 
-$id = isset($_GET['id']) ? (int)$_GET['id'] : null;
+$id = isset($_GET['id']) ? (int)$_GET['id'] : null; //prendre l'id de l'url
 $idc = isset($_GET['confiserie_id']) ? (int)$_GET['confiserie_id'] : null;
 
 
