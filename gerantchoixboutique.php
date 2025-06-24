@@ -4,17 +4,18 @@ include_once("menu.php");
 include_once("db.php");
 
 
-// Vérifie que l'utilisateur est connecté
+// Vérification que l'utilisateur est bien connecté
 if (!isset($_SESSION['id'])) {
     echo "<p style='color:red;'>Vous devez être connecté pour voir vos boutiques.</p>";
     exit;
 }
 
-$gerant_id = $_SESSION['id']; // ID du gérant connecté
+$gerant_id = $_SESSION['id'];
 
 // Récupération des boutiques dont le gérant est l'utilisateur connecté
 $recup_mes_boutiques = dbquery("SELECT * FROM boutiques WHERE utilisateur_id = ?", [$gerant_id]);
 
+// Si aucune boutique n'est trouvée pour le gérant, affiche un message d'erreur
 if (empty($recup_mes_boutiques)) {
     echo "<p>Aucune boutique trouvée pour ce gérant.</p>";
 } else {

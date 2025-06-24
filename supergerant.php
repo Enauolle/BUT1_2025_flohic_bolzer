@@ -20,8 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supp'], $_POST['id_bo
 
 // Ajout d'une boutique
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_boutique'])) {
+    // ?? : Si la première valeur n'est pas définie, utilise la seconde, ici une chaîne de charactères vide
     $nom = $_POST['nom'] ?? '';
-    $utilisateur_id = $_POST['utilisateur_id'] ?? '';
+     $utilisateur_id = $_POST['utilisateur_id'] ?? '';
     $numero_rue = $_POST['numero_rue'] ?? '';
     $nom_adresse = $_POST['nom_adresse'] ?? '';
     $code_postal = $_POST['code_postal'] ?? '';
@@ -30,18 +31,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_boutique'])) {
     $histoire = $_POST['histoire'] ?? '';
     $image = $_FILES['illustration'] ?? null;
 
+    // Acceptation de tout type de photo
     $fileName = '';
     if ($image && $image['error'] === UPLOAD_ERR_OK) {
+        //  On regarde le type du fichier (jpg, png gif, ect)
         $ext = strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
+        // Liste de ceux autorisés
         $allowedExts = ['jpg', 'jpeg', 'png', 'gif'];
+        // Si type dans liste, c'est ok
         if (in_array($ext, $allowedExts)) {
+            // Nom du fichier généré grace au temps et un identifiant unique très precis
             $fileName = time() . '_' . uniqid() . '.' . $ext;
             $targetDir = "img/img_bdd/";
+            // On met l'image dans le dossier choisi + Création du dossier si il n'existe pas
             if (!is_dir($targetDir)) mkdir($targetDir, 0755, true);
-            $photoPath = $targetDir . $fileName;
+                $photoPath = $targetDir . $fileName;
             if (!move_uploaded_file($image['tmp_name'], $photoPath)) {
                 echo "<p style='color:red;'>Erreur lors du déplacement du fichier uploadé.</p>";
-                $fileName = ''; // sécurité
+                $fileName = '';
             }
         } else {
             echo "<p style='color:red;'>Type de fichier non autorisé.</p>";
@@ -83,7 +90,7 @@ $recuperation = dbquery("SELECT * FROM boutiques ORDER BY nom");
                     $baseName = $boutique['illustration'];
                     $imageDir = 'img/img_bdd/';
                     $image = $imageDir . 'default.jpg';
-
+                    // Vérification de l'existence de l'image
                     if (!empty($baseName)) {
                         if (file_exists($imageDir . $baseName)) {
                             $image = $imageDir . $baseName;
@@ -97,12 +104,14 @@ $recuperation = dbquery("SELECT * FROM boutiques ORDER BY nom");
                         }
                     }
                 ?>
+                <!-- Liens vers les boutiques -->
                 <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($boutique['nom']) ?>">
                 <h3><?= htmlspecialchars($boutique['nom']) ?></h3>
                 <span class="voir-plus">Voir plus &gt;</span>
             </a>
 
         </div>
+        <!-- Bouton supprimer qui apparais que si le stock = 0 (pas besoin de demander si on est admin, c'ette page n'est pas accessible (normalement) par les autres) -->
         <?php
                 $stockCount = (int) dbquery("SELECT COUNT(*) AS count FROM stocks WHERE boutique_id = ?", [$boutique['id']])[0]['count'];
                 if ($stockCount === 0): ?>

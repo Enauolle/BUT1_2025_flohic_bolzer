@@ -7,4 +7,9 @@ Il vous reste normalement uniquement à les copier-coller pour que cela marche.
 
 Maintenant pour les petites manip lors du test de notre site :
 Si vous ajoutez ou retirez un bonbon, vous devrez recharger la page pour que cela prenne effet.
-Le menu dans le header ramenera toujours vers les fiches boutique côté client même si un admin ou gérant est connécté
+Le menu dans le header ramenera toujours vers les fiches boutique côté client même si un admin ou gérant est connécté.
+
+
+Merci et bonnes vacances ! :D
+
+Lucie Flohic et Louane Bolzer

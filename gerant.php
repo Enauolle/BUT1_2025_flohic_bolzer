@@ -1,5 +1,5 @@
 <?php
-include_once("header.php"); // session_start supposé dans header.php
+include_once("header.php"); 
 include_once("menu.php");
 include_once("db.php");
 
@@ -11,7 +11,7 @@ if (!$idb) {
     exit;
 }
 
-// Récupérer infos boutique
+// Récupération des infos de la boutique
 $recup = dbquery("SELECT * FROM boutiques WHERE id = ?", [$idb]);
 if (empty($recup)) {
     echo "<p style='color:red;'>Boutique introuvable.</p>";
@@ -19,14 +19,12 @@ if (empty($recup)) {
 }
 $boutique = $recup[0];
 
-// Récupérer toutes les confiseries (pour menu ajout bonbon)
+// Récupération de toutes les confiseries (pour menu ajout bonbon)
 $recup2 = dbquery("SELECT * FROM confiseries ORDER BY nom");
 
-// Récupérer stocks de cette boutique
+// Récupération des stocks de cette boutique
 $recup3 = dbquery("SELECT * FROM stocks WHERE boutique_id = ?", [$idb]);
 
-// Connexion PDO depuis db.php (ex: $PDO)
-// Gestion des POST (modification stock, suppression, ajout)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['changer'])) {
@@ -58,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $idp = (int)$_POST['id_produit'];
         $id_boutique = (int)$_POST['id_boutique'];
 
-        // Vérifier si déjà présent pour éviter doublon (optionnel)
+        // Vérifier si déjà présent, si non, pas possible
         $check = dbquery("SELECT * FROM stocks WHERE confiserie_id = ? AND boutique_id = ?", [$idp, $id_boutique]);
         if (empty($check)) {
             $sqladd = $PDO->prepare("INSERT INTO stocks (confiserie_id, boutique_id, quantite) VALUES (?, ?, 1)");
