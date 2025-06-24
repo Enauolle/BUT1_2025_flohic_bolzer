@@ -27,8 +27,8 @@ if (isset($_POST['bonbon'])) {
     $idp = intval($_POST['id_produit']);
     $id_boutique = intval($_POST['id_boutique']);
 
-    $stmt = $PDO->prepare("INSERT INTO stocks (confiserie_id, boutique_id, quantite) VALUES (?, ?, 1)");
-    $stmt->execute([$idp, $id_boutique]);
+    $sqladd = $PDO->prepare("INSERT INTO stocks (confiserie_id, boutique_id, quantite) VALUES (?, ?, 1)");
+    $sqladd->execute([$idp, $id_boutique]);
 }
 
 
@@ -47,7 +47,7 @@ foreach($recup as $boutiques){
         <?php foreach ($recup2 as $confiseries){ ?>
             <form method="post" action="">
                 <input type="hidden" name="id_produit" value="<?php echo($confiseries['id']) ?>">
-                <input type="hidden" name="id_boutique" value="<?php echo($idg) ?>"> <!-- idg = ID de la boutique -->
+                <input type="hidden" name="id_boutique" value="<?php echo($idg) ?>"> 
                 <button type="submit" name="bonbon" class="bon"><?php echo($confiseries['nom']) ?></button>
             </form>
         <?php } ?>
