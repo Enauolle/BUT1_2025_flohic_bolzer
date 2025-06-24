@@ -20,6 +20,11 @@
   color: black;
 }
 
+.boutique.menu:hover {
+    background-color: #8e342f;
+    font-weight: bold;
+}
+
 .trait {
   width: 100%;
   height: 1px;

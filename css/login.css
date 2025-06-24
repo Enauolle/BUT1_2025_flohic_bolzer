@@ -59,7 +59,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: rgb(180, 69, 63);
+    background-color: #8e342f;
 }
 
 .error {

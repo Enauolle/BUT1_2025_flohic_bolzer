@@ -184,13 +184,16 @@ $recuperation = $AffichBoutiqque->fetchAll(PDO::FETCH_ASSOC);
         </form>
     </div>
 </div>
-<div class="banniere">
-    <img src="img/banniere2.jpg" alt="Bannière">
-</div>
 
 <div>
     <a class="lalaland" href="ajout_bonbon.php"> Ajouter des bonbons</a>
 </div>
+
+<div class="banniere">
+    <img src="img/banniere2.jpg" alt="Bannière">
+</div>
+
+
 
 
 <script src="script.js"></script>
