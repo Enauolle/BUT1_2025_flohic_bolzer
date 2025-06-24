@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_bonbon'])) {
 
 
 ?>
+<a class="retour" href="#" onclick="history.back(); return false;">Retour à la page précedente</a>
 <h1>Catalogue de Bonbons</h1>
 <button class="ajout" id="openFormBtn">Ajouter un bonbon</button>
 
