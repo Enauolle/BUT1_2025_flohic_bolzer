@@ -14,6 +14,9 @@ if (isset($_POST['changer'])) { //si je clique sur le boutton changer
 
     $sqlajout = "UPDATE stocks SET quantite = $nv_quantite WHERE confiserie_id = $idc AND boutique_id = $id_boutique";
     $PDO->query($sqlajout);
+
+    echo '<script>window.location.href=" gerant.php?idg='.$idg.'";</script>';
+    exit();
 }
 
 if (isset($_POST['supp'])) { //supp une confiserie
@@ -22,6 +25,9 @@ if (isset($_POST['supp'])) { //supp une confiserie
 
     $sqlsupp = "DELETE FROM stocks WHERE confiserie_id = $idc AND boutique_id = $id_boutique";
     $PDO->query($sqlsupp);
+
+    echo '<script>window.location.href=" gerant.php?idg='.$idg.'";</script>';
+    exit();
 }
 
 if (isset($_POST['bonbon'])) { //ajoute une confiserie
@@ -30,6 +36,9 @@ if (isset($_POST['bonbon'])) { //ajoute une confiserie
 
     $sqladd = $PDO->prepare("INSERT INTO stocks (confiserie_id, boutique_id, quantite) VALUES (?, ?, 1)");
     $sqladd->execute([$idp, $id_boutique]);
+
+    echo '<script>window.location.href=" gerant.php?idg='.$idg.'";</script>';
+    exit();
 }
 
 

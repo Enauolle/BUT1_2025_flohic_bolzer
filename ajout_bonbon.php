@@ -91,25 +91,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_bonbon'])) {
 <main class="propro">
 <?php
 foreach ($recup2 as $confiseries) {
-                            $imgc = $confiseries['illustration'];
-                            $nomc = $confiseries['nom'];
-                            $prix = $confiseries['prix'];
-                            $idc = $confiseries['id'];
-                            echo('<div class="carte">');
-                            echo('<div class="confis"> <img src="img/img_bdd/'.$imgc.'"/> </div>');
-                            echo('<h4>'.$nomc.'</h4>');
-                            echo('</br>');
-                            echo($confiseries['description']);
-                            echo('</br>');
-                            echo(''.$prix.'€');
-                            echo('</br>');
-                            echo('</br>');
-                            echo('<a href="bonbon.php?confiserie_id='.$idc.'" >Voir les détails ></a>');
-                            echo('</div>');
-                  }
+    $imgc = $confiseries['illustration'];
+    $nomc = $confiseries['nom'];
+    $prix = $confiseries['prix'];
+    $idc = $confiseries['id'];
 
+    echo('<div class="carte">');
+    echo('<div class="confis"> <img src="img/img_bdd/'.$imgc.'"/> </div>');
+    echo('<h4>'.$nomc.'</h4>');
+    echo('</br>');
+    echo($confiseries['description']);
+    echo('</br>');
+    echo($prix.'€');
+    echo('</br></br>');
+    echo('<a href="bonbon.php?confiserie_id='.$idc.'" >Voir les détails ></a>');
+    ?>
+    <form method="post" action="">
+        <input type="hidden" name="id_produit" value="<?php echo $confiseries['id']; ?>">
+        <button class="supp" type="submit" name="supp">Supprimer</button>
+    </form>
+    <?php
+    if (isset($_POST['supp'])) {
+    $idp = $_POST['id_produit'];
+
+    $sqlsup = "DELETE FROM confiseries WHERE id = $idp";
+    $PDO->query($sqlsup);
+
+    echo '<script>window.location.href=" ajout_bonbon.php";</script>'; //rafraichir la page
+    exit();
+}
+    echo('</div>');
+}
 ?>
 </main>
+
 
 <?php
 include_once("footer.php");
