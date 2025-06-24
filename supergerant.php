@@ -107,22 +107,24 @@ $recup = $stmtBoutiques->fetchAll(PDO::FETCH_ASSOC);
                      alt="<?php echo htmlspecialchars($boutique['nom']); ?>">
                 <h3><?php echo htmlspecialchars($boutique['nom']); ?></h3>
                 <span class="voir-plus">Voir plus &gt;</span>
+            
             </a>
+            
         </div>
         <?php
                 $stmtStock = $PDO->prepare("SELECT COUNT(*) FROM stocks WHERE boutique_id = ?");
                 $stmtStock->execute([$boutique['id']]);
                 $stockCount = (int)$stmtStock->fetchColumn();
-
-                if ($stockCount === 0):
-            ?>
-                <form method="POST" onsubmit="return confirm('Confirmer la suppression ?');" style="margin-top:10px;">
+            
+            if ($stockCount === 0): ?>
+                <form method="POST" onsubmit="return confirm('Confirmer la suppression ?');" class="form-supp">
                     <input type="hidden" name="id_boutique" value="<?= htmlspecialchars($boutique['id']) ?>">
                     <button type="submit" name="supp" class="boutton-supprimer">Supprimer</button>
                 </form>
             <?php endif; ?>
     <?php endforeach; ?>
 </div>
+
 
 <div class="trait" ></div>
 
